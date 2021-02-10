@@ -76,6 +76,7 @@ header>nav>ul>li>a {
     display: block;
     font-family: Asap;
     font-weight: bolder;
+    transition: 0.2s;
 }
 
 header>nav>ul>li>a:hover {
@@ -92,6 +93,34 @@ header>nav>ul>li#signin {
 main {
     grid-area: main;
     background-color: #E2E299;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-rows: auto min-content;
+}
+
+main button {
+    width: 50%;
+    height: 25%;
+    border: 1px solid #C6A85F;
+    background-color: black;
+    color: white;
+    font-family: Ubuntu;
+    font-size: 4em;
+    display: grid;
+    padding: 0;
+    margin: 0;
+    transition: 0.5s;
+}
+
+main button:hover {
+    width: 55%;
+    height: 30%;
+    background-color: #CB5E56;
+}
+
+main button h2 {
+    margin: auto;
 }
 
 aside {
@@ -108,6 +137,7 @@ aside button {
     border: none;
     font-family: Asap;
     font-weight: bolder;
+    transition: 0.2s;
 }
 
 aside button:hover {
