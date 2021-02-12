@@ -1,4 +1,4 @@
-/*
+ /*
 Color palette:: 
 Red = #CB5E56
 Brown = #C6A85F
@@ -183,6 +183,58 @@ body {
     grid-template-rows: 25% auto minmax(5%, 7%);
     grid-template-columns: auto auto auto 15%;
     grid-template-areas: "header header header header" "main main main sidebar" "footer footer footer footer";
+}
+
+#allBeverages {
+    display:none;
+}
+
+.show-beverages {
+    display: flex !important; 
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.beverage-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    width: 200px;
+    height: 100px;
+    box-shadow: 0px 3px 5px #d6d0d0;
+}
+
+.beverage-name {
+    margin: auto;
+    width: 25%;
+    height: 50%;
+    position: center;
+    text-align: center;
+    font-size: 100%;
+    font-style: italic;
+    margin-right: 10%;
+}
+
+.beverage-type {
+    margin: auto;
+    width: 25%;
+    height: 50%;
+    text-align: center;
+    font-style: italic;
+    font-size: 100%;
+}
+
+.beverage-buy-button {
+    margin: 12;
+    width: 10%;
+    text-align: italic;
+}
+
+.buy-text {
+    font-style: italic;
+    text-align: left;
+    margin: auto;
 }
 
 @media screen and (max-width: 768px) {
