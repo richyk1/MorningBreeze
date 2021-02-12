@@ -1,0 +1,194 @@
+/*
+Color palette:: 
+Red = #CB5E56
+Brown = #C6A85F
+Blue = #687DA2
+Light = #E2E299
+Greyish = #999B9D
+*/
+
+/*
+Fonts::
+Asap = for BIG BIG text
+Ubuntu = for BIG text
+Palanquin = for text
+*/
+
+@font-face {
+    font-family: Asap;
+    src: url('../fonts/Asap-Regular.ttf')
+}
+
+@font-face {
+    font-family: Palanquin;
+    src: url('../fonts/Palanquin-Regular.ttf')
+}
+
+@font-face {
+    font-family: Ubuntu;
+    src: url('../fonts/Ubuntu-Regular.ttf')
+}
+
+html {
+    height: 100%;
+}
+
+img {
+    object-fit: none;
+    width: 100%;
+    max-height: 100%;
+}
+
+header {
+    grid-area: header;
+    display: grid;
+    grid-template-rows: 55% auto;
+}
+
+header div#logo {
+    background-color: #181A1B;
+}
+
+header img {
+    grid-row: 1;
+}
+
+header nav {
+    grid-row: 2;
+    background-color: #C6A85F;
+}
+
+header nav ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    justify-items: center;
+    align-items: center;
+    padding: 0;
+    margin: auto;
+    height: 100%;
+}
+
+header nav ul li {
+    background-color: black;
+    margin-right: 30px;
+    width: 150px;
+    line-height: 60px;
+    text-align: center;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-family: Asap;
+    font-weight: bolder;
+    transition: 0.2s;
+}
+
+header nav ul li a:hover {
+    text-decoration: none;
+    color: white;
+    display: block;
+    background-color: #CB5E56;
+}
+
+header nav ul li#signin {
+    grid-column: 5;
+}
+
+main {
+    grid-area: main;
+    background-color: #E2E299;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-rows: auto min-content;
+}
+
+main button {
+    width: 50%;
+    height: 25%;
+    border: 1px solid #C6A85F;
+    background-color: black;
+    color: white;
+    font-family: Ubuntu;
+    font-size: 4em;
+    display: grid;
+    padding: 0;
+    margin: 0;
+    transition: 0.5s;
+}
+
+main button:hover {
+    width: 55%;
+    height: 30%;
+    background-color: #CB5E56;
+}
+
+main button h2 {
+    margin: auto;
+}
+
+aside {
+    grid-area: sidebar;
+    background-color: #687DA2;
+    display: grid;
+    grid-template-rows: auto min-content;
+}
+
+aside button {
+    grid-row: 2;
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: Asap;
+    font-weight: bolder;
+    transition: 0.2s;
+}
+
+aside button:hover {
+    background-color: #CB5E56;
+}
+
+aside button:focus {
+    outline: none;
+}
+
+footer {
+    grid-area: footer;
+    background-color: #caab60;
+    text-align: center;
+    text-decoration: none;
+    display: grid;
+}
+
+footer a {
+    text-decoration: none;
+    font-family: Palanquin;
+    font-size: small;
+    color: black;
+}
+
+p {
+    font-family: Palanquin;
+    margin: 0;
+}
+
+body {
+    display: grid;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 25% auto minmax(5%, 7%);
+    grid-template-columns: auto auto auto 15%;
+    grid-template-areas: "header header header header" "main main main sidebar" "footer footer footer footer";
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        grid-template-rows: 25% auto 10% minmax(5%, 7%);
+        grid-template-columns: auto auto auto auto;
+        grid-template-areas: "header header header header" "main main main main" "sidebar sidebar sidebar sidebar" "footer footer footer footer";
+    }
+}
