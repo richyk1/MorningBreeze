@@ -14,30 +14,34 @@
     <script type="text/javascript" src="drinks.js"></script>
 </head>
 
-<body>
+<body id="login">
     <header>
         <div id="logo">
-
             <img src="assets/images/logo.svg" alt="Logo image for our website.">
         </div>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <h1><p>HOME</p></h1>
+                <h1><p>LOGIN FORM</p></h1>
                 <li id="signin"><a href="login.html">Sign in</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <div id="allBeverages"></div>
-
-        <button id="menu" onclick="drinks.js"><h2>MENU</h2></button>
-        <div id="order">
-        </div>
+        <form action="">
+            <div id="login">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
+            </div>
+            <div id="password">
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" placeholder="Enter Password" required>
+            </div>
+            <div id="submit">
+                <input type="submit" value="Let me in!">
+            </div>
+        </form>
     </main>
-    <aside>
-        <button type="submit">Order</button>
-    </aside>
     <footer>
         <p>
             The Morning Breeze Group
