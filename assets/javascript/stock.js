@@ -65,6 +65,7 @@ function remove_product_from_stock(product_name) {
     for (i = 0; i < temp.length; i++) {
 	if (temp[i].name === product_name) {
 	    ind = i;
+	    break;
 	}
     }
 
