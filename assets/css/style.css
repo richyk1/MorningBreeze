@@ -7,309 +7,382 @@ Light = #E2E299
 Greyish = #999B9D
 */
 
-/*
+ /*
 Fonts::
 Asap = for BIG BIG text
 Ubuntu = for BIG text
 Palanquin = for text
 */
 
-@font-face {
-    font-family: Asap;
-    src: url('../fonts/Asap-Regular.ttf')
-}
+ @font-face {
+     font-family: Asap;
+     src: url('../fonts/Asap-Regular.ttf')
+ }
 
-@font-face {
-    font-family: Palanquin;
-    src: url('../fonts/Palanquin-Regular.ttf')
-}
+ @font-face {
+     font-family: Palanquin;
+     src: url('../fonts/Palanquin-Regular.ttf')
+ }
 
-@font-face {
-    font-family: Ubuntu;
-    src: url('../fonts/Ubuntu-Regular.ttf')
-}
+ @font-face {
+     font-family: Ubuntu;
+     src: url('../fonts/Ubuntu-Regular.ttf')
+ }
 
-html {
-    height: 100%;
-    background-color: #E2E299;
-}
+ html {
+     height: 100%;
+     background-color: #E2E299;
+ }
 
-img {
-    object-fit: none;
-    width: 100%;
-    max-height: 100%;
-}
+ img {
+     object-fit: none;
+     width: 100%;
+     max-height: 100%;
+ }
 
-header {
-    grid-area: header;
-    display: grid;
-    grid-template-rows: 55% auto;
-}
+ header {
+     grid-area: header;
+     display: grid;
+     grid-template-rows: 70% auto;
+     grid-template-columns: auto auto auto 15%;
+ }
 
-header > div#logo {
-    background-color: #181A1B;
-}
+ header>div#logo {
+     background-color: #181A1B;
+     grid-column: 1 / 5;
+ }
 
-header > img {
-    grid-row: 1;
-}
+ header>nav {
+     grid-row: 2;
+     grid-column-start: 1;
+     grid-column-end: 4;
+     background-color: #C6A85F;
+     list-style: none;
+     display: grid;
+     grid-template-columns: auto auto auto auto auto;
+     grid-template-rows: auto;
+     justify-items: center;
+     align-items: center;
+     padding: 0;
+     margin: auto;
+     height: 100%;
+     width: 100%;
+ }
 
-header > nav {
-    grid-row: 2;
-    background-color: #C6A85F;
-}
+ .navitem {
+     background-color: black;
+     margin-right: 30px;
+     width: 150px;
+     line-height: 60px;
+     text-align: center;
+ }
 
-header > nav > ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    grid-template-rows: auto;
-    justify-items: center;
-    align-items: center;
-    padding: 0;
-    margin: auto;
-    height: 100%;
-}
+ .navitem>a {
+     text-decoration: none;
+     color: white;
+     display: block;
+     font-family: Asap;
+     font-weight: bolder;
+     transition: 0.2s;
+ }
 
-header > nav > ul > li {
-    background-color: black;
-    margin-right: 30px;
-    width: 150px;
-    line-height: 60px;
-    text-align: center;
-}
+ header>nav>li>a:hover {
+     text-decoration: none;
+     color: white;
+     display: block;
+     background-color: #CB5E56;
+ }
 
-header > nav > ul > li > a {
-    text-decoration: none;
-    color: white;
-    display: block;
-    font-family: Asap;
-    font-weight: bolder;
-    transition: 0.2s;
-}
+ header>nav>li#signin {
+     grid-column: 5;
+ }
 
-header > nav > ul > li > a:hover {
-    text-decoration: none;
-    color: white;
-    display: block;
-    background-color: #CB5E56;
-}
+ header>nav>h1 {
+     grid-column: 3;
+     margin: auto;
+     font-family: Palanquin;
+ }
 
-header > nav > ul > li#signin {
-    grid-column: 5;
-}
+ main {
+     grid-area: main;
+     background-color: #E2E299;
+     display: grid;
+     justify-items: center;
+     align-items: center;
+     grid-template-rows: auto min-content;
+     animation: fadein 0.5s;
+ }
 
-header > nav > ul > h1 {
-    grid-column: 3;
-}
+ @keyframes fadein {
+     from {
+         opacity: 0;
+     }
+     to {
+         opacity: 1;
+     }
+ }
 
-main {
-    grid-area: main;
-    background-color: #E2E299;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    grid-template-rows: auto min-content;
-    animation: fadein 0.5s;
-}
+ main button {
+     width: 50%;
+     height: 25%;
+     border: 1px solid #C6A85F;
+     background-color: black;
+     color: white;
+     font-family: Ubuntu;
+     font-size: 4em;
+     display: grid;
+     padding: 0;
+     margin: 0;
+     transition: 0.5s;
+ }
 
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
+ main button:hover {
+     width: 55%;
+     height: 30%;
+     background-color: #CB5E56;
+ }
 
-main button {
-    width: 50%;
-    height: 25%;
-    border: 1px solid #C6A85F;
-    background-color: black;
-    color: white;
-    font-family: Ubuntu;
-    font-size: 4em;
-    display: grid;
-    padding: 0;
-    margin: 0;
-    transition: 0.5s;
-}
+ main button h2 {
+     margin: auto;
+ }
 
-main button:hover {
-    width: 55%;
-    height: 30%;
-    background-color: #CB5E56;
-}
+ aside {
+     grid-area: sidebar;
+     background-color: #687DA2;
+     display: grid;
+     grid-template-rows: auto 5%;
+      box-shadow: inset 3px 0 15px 0px rgb(0 0 0 / 60%);
+ }
 
-main button h2 {
-    margin: auto;
-}
+ aside button {
+     grid-row: 2;
+ }
 
-aside {
-    grid-area: sidebar;
-    background-color: #687DA2;
-    display: grid;
-    grid-template-rows: auto min-content;
-}
+ footer {
+     grid-area: footer;
+     background-color: #caab60;
+     text-align: center;
+     text-decoration: none;
+     display: grid;
+ }
 
-aside button {
-    grid-row: 2;
-    background-color: black;
-    color: white;
-    border: none;
-    font-family: Asap;
-    font-weight: bolder;
-    transition: 0.2s;
-}
+ footer a {
+     text-decoration: none;
+     font-family: Palanquin;
+     font-size: small;
+     color: black;
+ }
 
-aside button:hover {
-    background-color: #CB5E56;
-}
+ p {
+     font-family: Palanquin;
+     margin: 0;
+ }
 
-aside button:focus {
-    outline: none;
-}
+ body {
+     display: grid;
+     margin: 0;
+     width: 100%;
+     height: 100%;
+     grid-template-rows: 25% minmax(75%, auto) min-content;
+     grid-template-columns: auto auto auto 15%;
+     grid-template-areas: "header header header header" "main main main sidebar" "footer footer footer footer";
+ }
 
-footer {
-    grid-area: footer;
-    background-color: #caab60;
-    text-align: center;
-    text-decoration: none;
-    display: grid;
-}
+ div#submit>input {
+     background-color: black;
+     color: white;
+     border: none;
+     font-family: Asap;
+     font-weight: bolder;
+     transition: 0.2s;
+     height: 100%;
+ }
 
-footer a {
-    text-decoration: none;
-    font-family: Palanquin;
-    font-size: small;
-    color: black;
-}
+ div#submit>input:hover {
+     background-color: #CB5E56;
+ }
 
-p {
-    font-family: Palanquin;
-    margin: 0;
-}
+ div#submit>input:focus {
+     outline: none;
+ }
 
-body {
-    display: grid;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    grid-template-rows: 25% auto minmax(5%, 7%);
-    grid-template-columns: auto auto auto 15%;
-    grid-template-areas: "header header header header" "main main main sidebar" "footer footer footer footer";
-}
+ #allBeverages {
+     display: none;
+ }
 
-body#login {
-    display: grid;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    grid-template-rows: 25% auto minmax(5%, 7%);
-    grid-template-columns: auto auto auto 15%;
-    grid-template-areas: "header header header header" "main main main main" "footer footer footer footer";
-}
+ .show-beverages {
+     display: flex !important;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+ }
 
-form {
-    display: flex;
-    flex-direction: column;
-    height: 35%;
-    width: 25%;
-    justify-content: center;
-    gap: 5px;
-    font-family: Palanquin;
-    border: 3px solid black;
-    padding: 10px;
-}
+ .beverage-container {
+     display: flex;
+     justify-content: center;
+     margin: 20px;
+     width: 200px;
+     height: 100px;
+     box-shadow: 0px 3px 5px #d6d0d0;
+ }
 
-form > * {
-    display: flex;
-    flex-direction: column;
-}
+ .beverage-name {
+     margin: auto;
+     width: 25%;
+     height: 50%;
+     position: center;
+     text-align: center;
+     font-size: 100%;
+     font-style: italic;
+     margin-right: 10%;
+ }
 
-form input[type=text], input[type=password] {
-    padding: 12px 20px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
+ .beverage-type {
+     margin: auto;
+     width: 25%;
+     height: 50%;
+     text-align: center;
+     font-style: italic;
+     font-size: 100%;
+ }
 
-form > div#submit {
-    width: 100%;
-    margin-top: auto;
-    height: 20%
-}
+ .beverage-buy-button {
+     margin: 12;
+     width: 10%;
+     text-align: italic;
+ }
 
-div#submit > input {
-    background-color: black;
-    color: white;
-    border: none;
-    font-family: Asap;
-    font-weight: bolder;
-    transition: 0.2s;
-    height: 100%;
-}
+ .buy-text {
+     font-style: italic;
+     text-align: left;
+     margin: auto;
+ }
 
-div#submit > input:hover {
-    background-color: #CB5E56;
-}
+ .dropdown {
+     grid-row: 2;
+     grid-column: 4;
+     display: flex;
+     background-color: #687DA2;
+     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+     flex-direction: column;
+     outline: solid 1px #E2E299;
+ }
 
-div#submit > input:focus {
-    outline: none;
-}
+ .dropdown>button {
+     height: 100%;
+ }
 
-#allBeverages {
-    display:none;
-}
+ .dropbtn {
+     flex: 1 0 auto;
+     height: 100%;
+     z-index: 2;
+ }
 
-.show-beverages {
-    display: flex !important; 
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
+ .dropdown-content {
+     background-color: #f9f9f9;
+     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.6);
+     width: 100%;
+     flex: 1 0 auto;
+     flex-direction: column;
+     z-index: 1;
+     min-height: 0%;
+     opacity: 0;
+     visibility: hidden;
+     display: flex;
+     transition: all 0.2s;
+ }
 
-.beverage-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px;
-    width: 200px;
-    height: 100px;
-    box-shadow: 0px 3px 5px #d6d0d0;
-}
+ .dropdown:hover .dropdown-content {
+     visibility: visible;
+     opacity: 1;
+     min-height: 100%;
+     display: flex;
+ }
 
-.beverage-name {
-    margin: auto;
-    width: 25%;
-    height: 50%;
-    position: center;
-    text-align: center;
-    font-size: 100%;
-    font-style: italic;
-    margin-right: 10%;
-}
+ .menu-button-wrapper {
+     width: 100%;
+     height: 100%;
+     display: flex;
+     justify-content: center;
+ }
 
-.beverage-type {
-    margin: auto;
-    width: 25%;
-    height: 50%;
-    text-align: center;
-    font-style: italic;
-    font-size: 100%;
-}
+ .btn {
+     background-color: black;
+     color: white;
+     border: none;
+     font-family: Asap;
+     font-weight: bolder;
+     transition: 0.2s;
+ }
 
-.beverage-buy-button {
-    margin: 12;
-    width: 10%;
-    text-align: italic;
-}
+ .btn:hover {
+     background-color: #CB5E56;
+ }
 
-.buy-text {
-    font-style: italic;
-    text-align: left;
-    margin: auto;
-}
+ .btn:focus {
+     outline: none;
+ }
 
-@media screen and (max-width: 768px) {
-    body {
-        grid-template-rows: 25% auto 10% minmax(5%, 7%);
-        grid-template-columns: auto auto auto auto;
-        grid-template-areas: "header header header header" "main main main main" "sidebar sidebar sidebar sidebar" "footer footer footer footer";
-    }
-}
+ .btn-nav {
+     width: 100%;
+     margin: 5px;
+ }
+
+ div#login-window {
+     position: fixed;
+     z-index: 5;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     display: none;
+     justify-content: center;
+ }
+
+ div#login-window form {
+     margin: auto;
+     display: flex;
+     flex-direction: column;
+     height: 35%;
+     width: 25%;
+     justify-content: center;
+     gap: 5px;
+     font-family: Palanquin;
+     border: 3px solid black;
+     padding: 10px;
+     background: #E2E299;
+     z-index: 10;
+ }
+
+ div#login-window form>* {
+     display: flex;
+     flex-direction: column;
+ }
+
+ div#login-window form input[type=text], input[type=password] {
+     padding: 12px 20px;
+     border: 1px solid #ccc;
+     box-sizing: border-box;
+ }
+
+ div#login-window form>div#submit {
+     width: 100%;
+     margin-top: auto;
+     height: 20%
+ }
+
+ div#tint {
+     opacity: 0;
+     width: 100%;
+     height: 100%;
+     position: fixed;
+     background: black;
+ }
+
+ @media screen and (max-width: 768px) {
+     body {
+         grid-template-rows: 25% auto 10% minmax(5%, 7%);
+         grid-template-columns: auto auto auto auto;
+         grid-template-areas: "header header header header" "main main main main" "sidebar sidebar sidebar sidebar" "footer footer footer footer";
+     }
+ }
