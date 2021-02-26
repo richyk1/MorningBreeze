@@ -29,6 +29,20 @@ Palanquin = for text
      src: url('../fonts/Ubuntu-Regular.ttf')
  }
 
+ *::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: #C6A85F;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #C6A85F;
+    border-radius: 1px;
+    border: 2px solid #181A1B;
+  }
+
  html {
      height: 100%;
      background-color: #E2E299;
@@ -39,6 +53,7 @@ Palanquin = for text
      width: 100%;
      max-height: 100%;
  }
+
 
  header {
      grid-area: header;
@@ -111,6 +126,7 @@ Palanquin = for text
      align-items: center;
      grid-template-rows: auto min-content;
      animation: fadein 0.5s;
+     overflow: auto;
  }
 
  @keyframes fadein {
@@ -206,9 +222,6 @@ Palanquin = for text
      outline: none;
  }
 
- #allBeverages {
-     display: none;
- }
 
  .show-beverages {
      display: flex !important;
@@ -250,6 +263,32 @@ Palanquin = for text
      margin: 12;
      width: 10%;
      text-align: italic;
+ }
+
+ #all-beverages {
+     display: none;
+     grid-auto-rows: 200px;
+     grid-template-columns: auto auto auto;
+     margin: 1%;
+     gap: 10px;
+ }
+
+ .beverage {
+     height: 100%;
+     display: flex;
+     outline: 1px solid black;
+ }
+
+ .beverage-image-wrapper {
+     display: flex;
+ }
+
+ .beverage-image {
+    object-fit: none;
+ }
+
+ .beverage-info {
+     flex: 1 1 auto;
  }
 
  .buy-text {

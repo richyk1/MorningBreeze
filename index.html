@@ -8,7 +8,7 @@
     <title>Morning Breeze</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/javascript/jquery-3.3.1.min.js"></script>
-    <script src="assets/javascript/model/user_model.js"></script>
+    <script src="assets/javascript/model/data_model.js"></script>
     <script src="assets/javascript/controller/user_controller.js"></script>
     <script src="assets/javascript/controller/nav_controller.js"></script>
 </head>
@@ -39,9 +39,7 @@
             <div class="menu-button-wrapper">
                 <button class="btn btn-nav" onclick="sendHome()">Home</button>
             </div>
-            <p>
             <h1>Home</h1>
-            </p>
         </nav>
         <div class="dropdown">
             <button class="dropbtn btn" onclick="show_login()">Login</button>
@@ -49,8 +47,8 @@
 
     </header>
     <main>
-        <div id="allBeverages"></div>
-        <button id="menu" onclick="drinks.js">
+        <div id="all-beverages"></div>
+        <button id="menu">
             <h2>MENU</h2>
         </button>
         <div id="order">

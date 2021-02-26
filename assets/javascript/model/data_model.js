@@ -57,6 +57,20 @@ class User {
     }
 }
 
+/** Class representing information of a beverage. */
+class Beverage {
+    /**
+     * @param {string} productNameBold Product name in bold
+     * @param {string} productNameThin Product mini-slogan
+     * @param {string} imageUrl URL of beverage image
+     */
+    constructor(productNameBold, productNameThin, imageUrl) {
+        this.productNameBold = productNameBold;
+        this.productNameThin = productNameThin;
+        this.imageUrl = imageUrl;
+    }
+}
+
 const ACCESS_LEVELS = {
     MANAGER: "0",
     BARTENDER: "1",
@@ -65,6 +79,7 @@ const ACCESS_LEVELS = {
     REGULAR: "4"
 }
 
+/** Class responsible for extracting relevant information from databases */
 class Data {
     constructor() {
         this.users = [];
@@ -73,22 +88,41 @@ class Data {
         this.bought = [];
         this.sold = [];
 
-
-        // Sample function to load all the users into the global users variable.
-        //
         this.loadUsers = function () {
             loadJSON((response) => {
-
-                // The use of a JSON-parser means that there must not be anything but a proper
-                // JSON-structure in the file.
-                //
                 db.users = JSON.parse(response);
-
             }, 'database/morningbreeze_users.json');
+        };
+
+        this.loadBeverages = function () {
+            loadJSON((response) => {
+                const parsedResponse = JSON.parse(response);
+                Array.from(parsedResponse.products).forEach((value) => {
+                    this.beverages.push(new Beverage(value.productNameBold, value.productNameThin, value.images[0].imageUrl));
+                })
+            }, 'database/morningbreeze_beers.json');
         };
 
         /**
          * Retrieves users information from the database by the given username.
+         * @param {string} username - The string containing username.
+         * @returns {User} A User object.
+         */
+        this.getUser = function (username) {
+            var foundUser = Array.from(db.users.users).find(user => user.username == username);
+            if (foundUser) return new User(foundUser.credentials,
+                foundUser.password,
+                foundUser.username,
+                foundUser.first_name,
+                foundUser.last_name,
+                foundUser.email,
+                foundUser.phone);
+
+            return undefined;
+        };
+
+        /**
+         * Retrieves information about the specified beverage.
          * @param {string} username - The string containing username.
          * @returns {User} A User object.
          */
@@ -109,3 +143,4 @@ class Data {
 
 const db = new Data();
 db.loadUsers();
+db.loadBeverages();
