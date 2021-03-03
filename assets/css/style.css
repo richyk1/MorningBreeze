@@ -30,18 +30,18 @@ Palanquin = for text
  }
 
  *::-webkit-scrollbar {
-    width: 12px;
-  }
-  
-  *::-webkit-scrollbar-track {
-    background: #C6A85F;
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: #C6A85F;
-    border-radius: 1px;
-    border: 2px solid #181A1B;
-  }
+     width: 12px;
+ }
+
+ *::-webkit-scrollbar-track {
+     background: #C6A85F;
+ }
+
+ *::-webkit-scrollbar-thumb {
+     background-color: #C6A85F;
+     border-radius: 1px;
+     border: 2px solid #181A1B;
+ }
 
  html {
      height: 100%;
@@ -53,7 +53,6 @@ Palanquin = for text
      width: 100%;
      max-height: 100%;
  }
-
 
  header {
      grid-area: header;
@@ -167,7 +166,7 @@ Palanquin = for text
      background-color: #687DA2;
      display: grid;
      grid-template-rows: auto 5%;
-      box-shadow: inset 3px 0 15px 0px rgb(0 0 0 / 60%);
+     box-shadow: inset 3px 0 15px 0px rgb(0 0 0 / 60%);
  }
 
  aside button {
@@ -222,7 +221,6 @@ Palanquin = for text
      outline: none;
  }
 
-
  .show-beverages {
      display: flex !important;
      flex-wrap: wrap;
@@ -268,7 +266,7 @@ Palanquin = for text
  #all-beverages {
      display: none;
      grid-auto-rows: 200px;
-     grid-template-columns: auto auto auto;
+     grid-template-columns: 1fr 1fr 1fr;
      margin: 1%;
      gap: 10px;
  }
@@ -277,6 +275,11 @@ Palanquin = for text
      height: 100%;
      display: flex;
      outline: 1px solid black;
+     transition: all 0.3s ease-in-out;
+ }
+
+ .beverage:hover {
+     box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.4);
  }
 
  .beverage-image-wrapper {
@@ -284,12 +287,93 @@ Palanquin = for text
  }
 
  .beverage-image {
-    object-fit: none;
+     object-fit: none;
  }
 
  .beverage-info {
-     flex: 1 1 auto;
+     flex: 1 1 80%;
+     margin: 0.5%;
+     display: grid;
+     grid-template-rows: 40% auto 10%;
  }
+
+ .beverage-header {
+     display: flex;
+     flex-direction: column;
+ }
+
+ .beverage-header h2 {
+     font-family: Ubuntu;
+     flex-grow: 1;
+     margin: 0;
+ }
+
+ .beverage-header h4 {
+     font-family: Palanquin;
+     flex-grow: 1;
+     margin: 0;
+ }
+
+ .beverage-header hr {
+     width: 80%;
+     margin-left: 0;
+     border: 0;
+     border-bottom: 1px dashed #687DA2;
+     background: #cb5e56;
+ }
+
+ .beverage-main-content {
+     font-size: small;
+ }
+
+ .beverage-footer {
+     display: flex;
+ }
+
+ .beverage-country-icon {
+     flex: 1 1 10%;
+     display: flex;
+     justify-content: center;
+ }
+
+ .beverage-country-icon img {
+     object-fit: cover;
+ }
+
+ .beverage-country-name {
+     font-family: Asap;
+     flex: 1 1 90%;
+     margin-left: 1%;
+ }
+
+ .beverage-to-list {
+     display: flex;
+     height: 100%;
+     flex: 1 1 6%;
+     justify-content: center;
+     align-items: center;
+     background: transparent;
+     cursor: pointer;
+ }
+
+ .beverage-to-list:hover {
+     height: unset;
+     background-color: #bda15b
+ }
+
+ .beverage-to-list:focus {
+     outline: none;
+ }
+
+
+ .beverage-to-list img {
+     object-fit: cover;
+ }
+
+ .beverage-price {
+     margin-right: 3%;
+ }
+
 
  .buy-text {
      font-style: italic;

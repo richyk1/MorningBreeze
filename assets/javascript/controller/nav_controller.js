@@ -54,15 +54,35 @@ function menuOnClick(event) {
 
         beverages.forEach(function (beverage) {
             const beverageDOM = '<div class="beverage">' +
-            "<div class='beverage-info'>" + 
-                "<h2>" + beverage.productNameBold + "</h2>" +
-                "<h2>" + beverage.productNameThin + "</h2>" +
-            "</div>" +
-            "<div class='beverage-image-wrapper'>" + 
-                '<img class="beverage-image" src=' + beverage.imageUrl + "_100.png" + "></img>" +
-            "</div>"
+                "<div class='beverage-info'>" + 
+                    "<div class='beverage-header'>" + 
+                        "<h2>" + beverage.productNameBold + "</h2>" +
+                        "<h4>" + beverage.productNameThin + "</h4>" +
+                        "<hr>" +
+                    "</div>" +
+                    "<div class='beverage-main-content'>" + 
+                        "<p>" + beverage.taste +"</p>" +
+                        "<p>" + beverage.usage +"</p>" +
+                    "</div>" +
+                    "<div class='beverage-footer'>" + 
+                        "<span class='beverage-country-icon'>" + 
+                            '<img src=assets/images/flags/' + beverage.country + ".svg" + "></img>" +
+                        "</span>" + 
+                        "<span class='beverage-country-name'>" + 
+                            beverage.country + 
+                        "</span>" + 
+                        "<span class='beverage-price'>" + 
+                            beverage.price + ":-" +
+                        "</span>" + 
+                        "<button class='beverage-to-list'>" +
+                                "<img src=assets/images/add-circle-outline.svg></img>" +
+                        "</button>" +
+                    "</div>" +
+                "</div>" +
+                "<div class='beverage-image-wrapper'>" + 
+                    '<img class="beverage-image" src=' + beverage.imageUrl + "_100.png" + "></img>" +
+                "</div>"
             "</div>";
-            ;
             
             $('div#all-beverages').append(beverageDOM);
         });

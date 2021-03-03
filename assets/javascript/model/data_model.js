@@ -60,14 +60,20 @@ class User {
 /** Class representing information of a beverage. */
 class Beverage {
     /**
-     * @param {string} productNameBold Product name in bold
-     * @param {string} productNameThin Product mini-slogan
-     * @param {string} imageUrl URL of beverage image
+     * @param {string} productNameBold Product name in bold.
+     * @param {string} productNameThin Product mini-slogan.
+     * @param {string} imageUrl URL of beverage image.
+     * @param {string} taste Some information about the product.
      */
-    constructor(productNameBold, productNameThin, imageUrl) {
-        this.productNameBold = productNameBold;
-        this.productNameThin = productNameThin;
+    constructor(productNameBold, productNameThin, imageUrl, taste, usage, country, price) {
         this.imageUrl = imageUrl;
+        this.productNameBold = productNameBold; 
+        if(productNameThin) this.productNameThin = productNameThin;
+        else this.productNameThin = "";
+        this.taste = taste;
+        this.usage = usage;
+        this.country = country;
+        this.price = price;
     }
 }
 
@@ -98,7 +104,8 @@ class Data {
             loadJSON((response) => {
                 const parsedResponse = JSON.parse(response);
                 Array.from(parsedResponse.products).forEach((value) => {
-                    this.beverages.push(new Beverage(value.productNameBold, value.productNameThin, value.images[0].imageUrl));
+                    this.beverages.push(new Beverage(value.productNameBold, value.productNameThin, value.images[0].imageUrl, value.taste,
+                        value.usage, value.country, value.price));
                 })
             }, 'database/morningbreeze_beers.json');
         };
