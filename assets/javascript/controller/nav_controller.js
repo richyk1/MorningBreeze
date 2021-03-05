@@ -91,12 +91,17 @@ function menuOnClick(event) {
         $(this).css("display", "none");
 };
 
+function onClick() {
+    alert("Clicked on cjuicer");
+}
+
 jQuery(function () {
     $('button#menu').on('click', { beverages: db.beverages }, menuOnClick);
     $('.table-button').each(function(index) {
         const rand = Math.round(Math.random());
         if(rand) {
-            $(this).css("background-color", "#68a26a");
+            $(this).css("background-color", "#68a26a").parent().addClass("table-available");
+            $(this).parent().on('click', onClick);
         } else {
             $(this).css("background-color", "#cb5e56"); 
         }

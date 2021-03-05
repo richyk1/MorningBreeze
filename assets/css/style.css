@@ -540,7 +540,7 @@ Palanquin = for text
     transition: border-radius 0.2s;
  }
 
- .table:hover .table-button {
+ .table-available:hover .table-button {
      border-radius: 0;
  }
 
