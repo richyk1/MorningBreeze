@@ -17,23 +17,23 @@ function start() {
     /*
         Vi lägger till en addEventListener till alla knappar som använder sig av
         classen addToCartButton.
-
+    */
     var quantity = document.getElementsByClassName('quantity')
     for (var i = 0; i < quantity.length; i++) {
         var input = quantity[i]
         input.addEventListener('change', newQuantity)
     }
-    */
+    
     /*
         Vi lägger till en addEventListener till alla knappar som använder sig av
         classen addToCartButton.
-    
+    */
     var addToCartButtons = document.getElementsByClassName('addToCartButton')
     for (var i = 0; i < addToCartButtons.length; i++) {
         var button = addToCartButtons[i]
         button.addEventListener('click', addToCart)
     }
-    */
+    
     var ord = document.getElementsByClassName('orderButton')
 }
 
@@ -53,11 +53,11 @@ function addToCart(event) {
     cartTotal()
 }
 
-function itemToCart(title, price) {
+function itemToCart(title, price, id) {
     var cartItem = document.createElement('div')
     cartItem.classList.add('numberInCart')
     var cartItems = document.getElementsByClassName('cartItems')[0]
-
+ 
     /*
         Vi ger HTML kod till varje objekt som finns med på vår cart.
         På så vis skriver vi ut den rätta titeln, priset, håller koll på
@@ -69,7 +69,7 @@ function itemToCart(title, price) {
         </div>
         <span class="cart-price cart-column">${price}</span>
         <div class="cart-quantity cart-column">
-            <input class="quantity" type="number" value="1">
+            <input id="cart-input-${id}" class="quantity" type="number" value="1">
             <button class="btn remove-item" type="button">REMOVE</button>
         </div>`
     cartItem.innerHTML = cartContent
