@@ -121,8 +121,8 @@ Palanquin = for text
      grid-area: main;
      background-color: #E2E299;
      display: grid;
-     justify-items: center;
-     align-items: center;
+     /* justify-items: center;
+     align-items: center; */
      grid-template-rows: auto min-content;
      animation: fadein 0.5s;
      overflow: auto;
@@ -137,7 +137,7 @@ Palanquin = for text
      }
  }
 
- main button {
+ button#menu {
      width: 50%;
      height: 25%;
      border: 1px solid #C6A85F;
@@ -145,19 +145,20 @@ Palanquin = for text
      color: white;
      font-family: Ubuntu;
      font-size: 4em;
-     display: grid;
+     /* display: grid; */
      padding: 0;
      margin: 0;
      transition: 0.5s;
+     display: none
  }
 
- main button:hover {
+ button#menu:hover {
      width: 55%;
      height: 30%;
      background-color: #CB5E56;
  }
 
- main button h2 {
+ button#menu h2 {
      margin: auto;
  }
 
@@ -279,7 +280,7 @@ Palanquin = for text
  }
 
  .beverage:hover {
-     box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.4);
+     box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.4);
  }
 
  .beverage-image-wrapper {
@@ -365,7 +366,6 @@ Palanquin = for text
      outline: none;
  }
 
-
  .beverage-to-list img {
      object-fit: cover;
  }
@@ -373,7 +373,6 @@ Palanquin = for text
  .beverage-price {
      margin-right: 3%;
  }
-
 
  .buy-text {
      font-style: italic;
@@ -500,6 +499,50 @@ Palanquin = for text
      height: 100%;
      position: fixed;
      background: black;
+ }
+
+ div#table-window {
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr 1fr;
+     grid-template-rows: 1fr 1fr 1fr;
+     align-items: center;
+     justify-items: center;
+ }
+
+ .table {
+     border: 1px solid black;
+     padding: 1%;
+     box-shadow: inset 0 0 20px 7px rgb(0 0 0 / 60%);
+     border-radius: 5px;
+     transition: padding 0.2s;
+ }
+
+ .table img {
+     object-fit: contain;
+     width: fit-content;
+ }
+
+ .table-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 50%;
+    font-family: Ubuntu;
+    font-weight: bold;
+    transition: border-radius 0.2s;
+ }
+
+ .table:hover .table-button {
+     border-radius: 0;
+ }
+
+ .table:hover {
+     padding: 3%;
  }
 
  @media screen and (max-width: 768px) {
