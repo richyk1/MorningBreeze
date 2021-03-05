@@ -507,6 +507,8 @@ Palanquin = for text
      grid-template-rows: 1fr 1fr 1fr;
      align-items: center;
      justify-items: center;
+
+     background-image: url("../images/topography.svg")
  }
 
  .table {
@@ -515,6 +517,7 @@ Palanquin = for text
      box-shadow: inset 0 0 20px 7px rgb(0 0 0 / 60%);
      border-radius: 5px;
      transition: padding 0.2s;
+     background: #C6A85F;
  }
 
  .table img {
@@ -542,7 +545,7 @@ Palanquin = for text
  }
 
  .table:hover {
-     padding: 3%;
+     padding: 2%;
  }
 
  @media screen and (max-width: 768px) {

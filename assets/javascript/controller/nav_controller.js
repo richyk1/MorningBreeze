@@ -93,5 +93,12 @@ function menuOnClick(event) {
 
 jQuery(function () {
     $('button#menu').on('click', { beverages: db.beverages }, menuOnClick);
-
+    $('.table-button').each(function(index) {
+        const rand = Math.round(Math.random());
+        if(rand) {
+            $(this).css("background-color", "#68a26a");
+        } else {
+            $(this).css("background-color", "#cb5e56"); 
+        }
+    });
 });
