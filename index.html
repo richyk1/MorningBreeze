@@ -13,6 +13,7 @@
     <script type="text/javascript" src="loader.js"></script>
     <script type="text/javascript" src="assets/javascript/drinks.js"></script>
     <script type="text/javascript" src="drag.js"></script>
+    <script type="text/javascript" src="store.js"></script>
 </head>
 
 <body>
@@ -37,6 +38,17 @@
         </div>
     </main>
     <aside id="aside" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <section class="container content-section">
+            <h2 class="cart-section-header">CART</h2>
+
+            <div class="cartItems"> </div>
+            <div class="cart-total">
+                <strong class="total-text">Totalt</strong>
+                <span class="totalPrice">0 kr</span>
+            </div>
+            
+        </section>
+
         <button type="submit">Order</button>
     </aside>
     <footer>

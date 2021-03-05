@@ -19,40 +19,31 @@ function allowDrop(ev) {
   
   function drop(ev) {
     ev.preventDefault();
+    
     var checkout = document.createElement("div");
-    var data = ev.dataTransfer.getData("text/plain");
-    var name = document.getElementById(data).getAttribute("name");
-    var quantity = "1";
+    var id = ev.dataTransfer.getData("text/plain");
+    var name = document.getElementById(id).getAttribute("name");
 
     if (myInclude(itemsInCheckout, name)) {
+        console.log("apelsin");
       for (var i = 0; i < itemsInCheckout.length; i++)
       {
         if (itemsInCheckout[i].name == name) {
-          itemsInCheckout[i].quantity = (parseInt(itemsInCheckout[i].quantity) + 1).toString();
-          var str = "q-"+name;
-          document.getElementById(str).innerHTML = "";
-          document.getElementById(str).innerHTML = itemsInCheckout[i].quantity;
+          console.log("kiwi");
+          var quantity = parseInt(itemsInCheckout[i].quantity) + 1;
+          document.getElementById("cart-input-"+id).value = quantity ;
+          itemsInCheckout[i].quantity = quantity;
           break;
         }
       }
     }
     else {
-      var price = (document.getElementById(data).getAttribute("price"));
-      itemsInCheckout.push({"name" : name , "price" : price , "quantity" : quantity})
-      for (var i = 0; i < itemsInCheckout.length; i++)
-      {
-        var namediv = document.createElement("div");
-        namediv.appendChild(document.createTextNode(itemsInCheckout[i].name));
-        var price = document.createElement("div");
-        price.appendChild(document.createTextNode(itemsInCheckout[i].price));
-        var quantity = document.createElement("div");
-        quantity.id = "q-"+name;
-        quantity.appendChild(document.createTextNode(itemsInCheckout[i].quantity));
-        checkout.appendChild(namediv);
-        checkout.appendChild(price);
-        checkout.appendChild(quantity);
-        ev.target.appendChild(checkout);       
-      }
+      console.log("banan");
+      var price = (document.getElementById(id).getAttribute("price"));
+      itemsInCheckout.push({"name" : name , "price" : price , "quantity" : "1"})
+
+      itemToCart(name, price, id);
+      cartTotal();
     }
 
     function myInclude (array, name) {
@@ -76,7 +67,6 @@ function allowDrop(ev) {
     //container.appendChild(price);
     //container.appendChild(quantity);
     //ev.target.appendChild(container);
-
   }
   
   $(document).ready(function() {
