@@ -93,6 +93,7 @@ class Data {
         this.payments = [];
         this.bought = [];
         this.sold = [];
+        this.cachedTable = 0;
 
         this.loadUsers = function () {
             loadJSON((response) => {
@@ -128,23 +129,13 @@ class Data {
             return undefined;
         };
 
-        /**
-         * Retrieves information about the specified beverage.
-         * @param {string} username - The string containing username.
-         * @returns {User} A User object.
-         */
-        this.getUser = function (username) {
-            var foundUser = Array.from(db.users.users).find(user => user.username == username);
-            if (foundUser) return new User(foundUser.credentials,
-                foundUser.password,
-                foundUser.username,
-                foundUser.first_name,
-                foundUser.last_name,
-                foundUser.email,
-                foundUser.phone);
+        this.setCacheTable = function (tableNumber) {
+            this.cachedTable = tableNumber;
+        }
 
-            return undefined;
-        };
+        this.getCacheTable = function () {
+            return this.cachedTable;
+        }
     }
 }
 

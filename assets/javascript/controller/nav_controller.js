@@ -91,8 +91,11 @@ function menuOnClick(event) {
         $(this).css("display", "none");
 };
 
-function onClick() {
-    alert("Clicked on cjuicer");
+function occupyTableOnClick() {
+    const tableNumber = Number($(this).text().trim());
+    db.setCacheTable(tableNumber);
+    $('div#table-window').css("display", "none");
+    $('button#menu').css("display", "grid");
 }
 
 jQuery(function () {
@@ -101,7 +104,7 @@ jQuery(function () {
         const rand = Math.round(Math.random());
         if(rand) {
             $(this).css("background-color", "#68a26a").parent().addClass("table-available");
-            $(this).parent().on('click', onClick);
+            $(this).parent().on('click', occupyTableOnClick);
         } else {
             $(this).css("background-color", "#cb5e56"); 
         }

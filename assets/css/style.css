@@ -147,7 +147,7 @@ Palanquin = for text
      font-size: 4em;
      /* display: grid; */
      padding: 0;
-     margin: 0;
+     margin: auto;
      transition: 0.5s;
      display: none
  }
@@ -350,7 +350,6 @@ Palanquin = for text
  .beverage-to-list {
      display: flex;
      height: 100%;
-     flex: 1 1 6%;
      justify-content: center;
      align-items: center;
      background: transparent;
@@ -367,7 +366,7 @@ Palanquin = for text
  }
 
  .beverage-to-list img {
-     object-fit: cover;
+     object-fit: contain;
  }
 
  .beverage-price {
