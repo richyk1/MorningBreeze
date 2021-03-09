@@ -57,6 +57,26 @@ class User {
     }
 }
 
+/** Class representing information of a beverage. */
+class Beverage {
+    /**
+     * @param {string} productNameBold Product name in bold.
+     * @param {string} productNameThin Product mini-slogan.
+     * @param {string} imageUrl URL of beverage image.
+     * @param {string} taste Some information about the product.
+     */
+    constructor(productNameBold, productNameThin, imageUrl, taste, usage, country, price) {
+        this.imageUrl = imageUrl;
+        this.productNameBold = productNameBold; 
+        if(productNameThin) this.productNameThin = productNameThin;
+        else this.productNameThin = "";
+        this.taste = taste;
+        this.usage = usage;
+        this.country = country;
+        this.price = price;
+    }
+}
+
 const ACCESS_LEVELS = {
     MANAGER: "0",
     BARTENDER: "1",
@@ -65,6 +85,7 @@ const ACCESS_LEVELS = {
     REGULAR: "4"
 }
 
+/** Class responsible for extracting relevant information from databases */
 class Data {
     constructor() {
         this.users = [];
@@ -72,19 +93,22 @@ class Data {
         this.payments = [];
         this.bought = [];
         this.sold = [];
+        this.cachedTable = 0;
 
-
-        // Sample function to load all the users into the global users variable.
-        //
         this.loadUsers = function () {
             loadJSON((response) => {
-
-                // The use of a JSON-parser means that there must not be anything but a proper
-                // JSON-structure in the file.
-                //
                 db.users = JSON.parse(response);
-
             }, 'database/morningbreeze_users.json');
+        };
+
+        this.loadBeverages = function () {
+            loadJSON((response) => {
+                const parsedResponse = JSON.parse(response);
+                Array.from(parsedResponse.products).forEach((value) => {
+                    this.beverages.push(new Beverage(value.productNameBold, value.productNameThin, value.images[0].imageUrl, value.taste,
+                        value.usage, value.country, value.price));
+                })
+            }, 'database/morningbreeze_beers.json');
         };
 
         /**
@@ -104,8 +128,26 @@ class Data {
 
             return undefined;
         };
+
+        this.setCacheTable = function (tableNumber) {
+            this.cachedTable = tableNumber;
+        }
+
+        this.getCacheTable = function () {
+            return this.cachedTable;
+        }
+
+        /**
+         * Retrieves beverage by name.
+         * @param {string} productNameBold
+         * @returns {Beverage}
+         */
+        this.loadBeverageByName = function(productNameBold) {
+            return this.beverages.find(beverage => beverage.productNameBold == productNameBold);
+        }
     }
 }
 
 const db = new Data();
 db.loadUsers();
+db.loadBeverages();

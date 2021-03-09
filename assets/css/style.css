@@ -29,6 +29,20 @@ Palanquin = for text
      src: url('../fonts/Ubuntu-Regular.ttf')
  }
 
+ *::-webkit-scrollbar {
+     width: 12px;
+ }
+
+ *::-webkit-scrollbar-track {
+     background: #C6A85F;
+ }
+
+ *::-webkit-scrollbar-thumb {
+     background-color: #C6A85F;
+     border-radius: 1px;
+     border: 2px solid #181A1B;
+ }
+
  html {
      height: 100%;
      background-color: #E2E299;
@@ -107,10 +121,11 @@ Palanquin = for text
      grid-area: main;
      background-color: #E2E299;
      display: grid;
-     justify-items: center;
-     align-items: center;
+     /* justify-items: center;
+     align-items: center; */
      grid-template-rows: auto min-content;
      animation: fadein 0.5s;
+     overflow: auto;
  }
 
  @keyframes fadein {
@@ -122,7 +137,7 @@ Palanquin = for text
      }
  }
 
- main button {
+ button#menu {
      width: 50%;
      height: 25%;
      border: 1px solid #C6A85F;
@@ -130,19 +145,20 @@ Palanquin = for text
      color: white;
      font-family: Ubuntu;
      font-size: 4em;
-     display: grid;
+     /* display: grid; */
      padding: 0;
-     margin: 0;
+     margin: auto;
      transition: 0.5s;
+     display: none
  }
 
- main button:hover {
+ button#menu:hover {
      width: 55%;
      height: 30%;
      background-color: #CB5E56;
  }
 
- main button h2 {
+ button#menu h2 {
      margin: auto;
  }
 
@@ -150,12 +166,12 @@ Palanquin = for text
      grid-area: sidebar;
      background-color: #687DA2;
      display: grid;
-     grid-template-rows: auto 5%;
-      box-shadow: inset 3px 0 15px 0px rgb(0 0 0 / 60%);
+     grid-template-rows: auto 5% 5%;
+     box-shadow: inset 3px 0 15px 0px rgb(0 0 0 / 60%);
  }
 
  aside button {
-     grid-row: 2;
+     grid-row: 3;
  }
 
  footer {
@@ -206,10 +222,6 @@ Palanquin = for text
      outline: none;
  }
 
- #allBeverages {
-     display: none;
- }
-
  .show-beverages {
      display: flex !important;
      flex-wrap: wrap;
@@ -250,6 +262,115 @@ Palanquin = for text
      margin: 12;
      width: 10%;
      text-align: italic;
+ }
+
+ #all-beverages {
+     display: none;
+     grid-auto-rows: 200px;
+     grid-template-columns: 1fr 1fr 1fr;
+     margin: 1%;
+     gap: 10px;
+ }
+
+ .beverage {
+     height: 100%;
+     display: flex;
+     outline: 1px solid black;
+     transition: all 0.3s ease-in-out;
+ }
+
+ .beverage:hover {
+     box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.4);
+ }
+
+ .beverage-image-wrapper {
+     display: flex;
+ }
+
+ .beverage-image {
+     object-fit: none;
+ }
+
+ .beverage-info {
+     flex: 1 1 80%;
+     margin: 0.5%;
+     display: grid;
+     grid-template-rows: 40% auto 10%;
+ }
+
+ .beverage-header {
+     display: flex;
+     flex-direction: column;
+ }
+
+ .beverage-header h2 {
+     font-family: Ubuntu;
+     flex-grow: 1;
+     margin: 0;
+ }
+
+ .beverage-header h4 {
+     font-family: Palanquin;
+     flex-grow: 1;
+     margin: 0;
+ }
+
+ .beverage-header hr {
+     width: 80%;
+     margin-left: 0;
+     border: 0;
+     border-bottom: 1px dashed #687DA2;
+     background: #cb5e56;
+ }
+
+ .beverage-main-content {
+     font-size: small;
+ }
+
+ .beverage-footer {
+     display: flex;
+ }
+
+ .beverage-country-icon {
+     flex: 1 1 10%;
+     display: flex;
+     justify-content: center;
+ }
+
+ .beverage-country-icon img {
+     object-fit: cover;
+ }
+
+ .beverage-country-name {
+     font-family: Asap;
+     flex: 1 1 90%;
+     margin-left: 1%;
+ }
+
+ .beverage-to-list {
+     display: flex;
+     height: 100%;
+     justify-content: center;
+     align-items: center;
+     background: transparent;
+     cursor: pointer;
+ }
+
+ .beverage-to-list:hover {
+     height: unset;
+     background-color: #bda15b
+ }
+
+ .beverage-to-list:focus {
+     outline: none;
+ }
+
+ .beverage-to-list img {
+     object-fit: contain;
+ }
+
+ .beverage-price {
+     margin-right: 3%;
  }
 
  .buy-text {
@@ -377,6 +498,53 @@ Palanquin = for text
      height: 100%;
      position: fixed;
      background: black;
+ }
+
+ div#table-window {
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr 1fr;
+     grid-template-rows: 1fr 1fr 1fr;
+     align-items: center;
+     justify-items: center;
+
+     background-image: url("../images/topography.svg")
+ }
+
+ .table {
+     border: 1px solid black;
+     padding: 1%;
+     box-shadow: inset 0 0 20px 7px rgb(0 0 0 / 60%);
+     border-radius: 5px;
+     transition: padding 0.2s;
+     background: #C6A85F;
+ }
+
+ .table img {
+     object-fit: contain;
+     width: fit-content;
+ }
+
+ .table-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 50%;
+    font-family: Ubuntu;
+    font-weight: bold;
+    transition: border-radius 0.2s;
+ }
+
+ .table-available:hover .table-button {
+     border-radius: 0;
+ }
+
+ .table:hover {
+     padding: 2%;
  }
 
  @media screen and (max-width: 768px) {
