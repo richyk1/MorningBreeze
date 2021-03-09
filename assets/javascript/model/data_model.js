@@ -136,6 +136,15 @@ class Data {
         this.getCacheTable = function () {
             return this.cachedTable;
         }
+
+        /**
+         * Retrieves beverage by name.
+         * @param {string} productNameBold
+         * @returns {Beverage}
+         */
+        this.loadBeverageByName = function(productNameBold) {
+            return this.beverages.find(beverage => beverage.productNameBold == productNameBold);
+        }
     }
 }
 
