@@ -184,3 +184,36 @@ function typesDrinks() {
 
     return types;
 }
+
+//Get array with products in stock, ordered by category (non alcoholic etc.).
+function getStockArray() {
+    var n = nonAlc();
+    var b = beerCider();
+    var w = wines();
+    var s = strongest();
+
+    var t1 = n.concat(b);
+    var t2 = w.concat(s);
+
+    var collector = t1.concat(t2);
+
+    return collector;
+}
+
+//Get an array containing a specific product in stock.
+function getAProductInStock(productName) {
+    var collector = [];
+    var nameLower = productName.toLowerCase();
+    var products = stock["products"];
+
+    for (i = 0; i < products.length; i++) {
+	var temp = products[i].name.toLowerCase();
+	if (temp === nameLower) {
+	    collector.push(products[i]);
+	    return collector;
+	}
+    }
+    var msg = "Product name not in list.";
+    alert(msg);
+    return collector;
+}
