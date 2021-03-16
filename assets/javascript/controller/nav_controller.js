@@ -5,6 +5,9 @@ function sendHome() {
     window.location.href = "index.html";
 }
 
+
+var dutchman_bar_payments = [];
+
 function untint() {
     $("div#login-window").animate({
         opacity: 0,
@@ -166,12 +169,34 @@ function cartTotal() {
 
     // Detta skyddar oss från att få en massa onödiga decimaler
     total = Math.round(total * 100) / 100;
-    
+    console.log(total);
+
     $('span#total-price').text(total + " kr");
+    return total;
 }
+
+function checkout(event) {
+    var totalInCart = parseInt(cartTotal());
+    console.log(totalInCart);
+    var transaction_id = (dutchman_bar_payments.length) + 1;
+    var admin_id = 2;
+    dutchman_bar_payments.push({"Amount" : totalInCart ,
+    "Transaction_id" : transaction_id , 
+    "Admin_id" : admin_id});
+    console.log(dutchman_bar_payments);
+    $('.cart-item').each(function(index, item) {
+        var name = $(this).children('.cart-name').text();
+        var quantity = $(this).children('.cart-quantity').children('.quantity').val();
+        //add_or_remove_qt_in_stock(name , quantity);
+        $(this).remove();
+    });
+
+}
+
 
 jQuery(function () {
     $('button#menu').on('click', { beverages: db.beverages }, menuOnClick);
+    $('button#order').on('click', checkout);
     $('.table-button').each(function(index) {
         const rand = Math.round(Math.random());
         if(rand) {
