@@ -11,11 +11,15 @@ function doAddProduct() {
 }
 
 function doAddProd() {
-    var name = $("#pname").val();
-    var price = $("#pprice").val();
-    var quantity = $("#pquantity").val();
+    var name = document.getElementById('pname').value;
+    alert(name);
+    var price = document.getElementById('pprice').value;
+    alert(price);
+    var quantity = document.getElementById('pquantity').value;
+    alert(quantity);
     var description = getDescription(name);
     var prod = new Product(name, description, price, quantity);
+    alert(prod.name);
     add_product_to_stock(prod);
 }
 

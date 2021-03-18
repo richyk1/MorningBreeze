@@ -1,5 +1,5 @@
 // Global variable for stock. Contains array of Product.
-var stock = {
+let stock = {
     "products" : []
 }
 
@@ -31,8 +31,10 @@ function add_or_remove_qt_in_stock(product_name, qt_to_add_or_remove) {
     var found = temp.find(found => found.name === product_name );
 
     if (typeof(found) != "undefined" && typeof(found.quantity) != "undefined") {
-	if (found.quantity + qt_to_add_or_remove >= 0) {
-	    found.quantity = found.quantity + qt_to_add_or_remove;
+	var tempStr = found.quantity;
+	var tempN = parseInt(tempStr);
+	if (tempN + qt_to_add_or_remove >= 0) {
+	    found.quantity = tempN + qt_to_add_or_remove;
 	} else {
 	    var error_msg1 = "Stock cannot be negative.";
 	    alert(error_msg1);
@@ -86,7 +88,6 @@ function getDescription(productName) {
 
     for (i = 0; i < spirits.length; i++) {
 	var temp = spirits[i].namn;
-	console.log(temp);
 	if (temp === productName) {
 	    collector.push(spirits[i].namn, spirits[i].producent, spirits[i].ursprung, spirits[i].ursprungslandnamn,
 			   spirits[i].varugrupp, spirits[i].forpackning, spirits[i].argang, spirits[i].alkoholhalt);
@@ -111,7 +112,6 @@ function getTaggedDrinksInStock(tag) {
 
 	var prod = products[i];
 	var info = prod.description;
-	console.log(info);
 	var typeLower = info[4].toLowerCase();
 	var index = typeLower.indexOf(tagLower); // index of substring or -1 if no substring
 
