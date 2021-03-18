@@ -1,0 +1,51 @@
+div {
+    width : 700px;
+    heigth : 200px;
+    text-align : left;
+    border : 3px solid;
+    border-color : darkred;
+}
+
+.button1 {
+    border : 3px solid;
+    padding : 2px;
+    border-color : darkgrey;
+    background-color : lightyellow;
+}
+
+.button2 {
+    border : 3px solid;
+    padding : 2px;
+    border-color : black;
+    background-color : lightgoldenrodyellow;
+}
+
+.field1 {
+    width : 60px;
+    padding : 5px;
+    text-align : right;
+    border : 3px solid;
+    border-color : darkgrey;
+    background-color : whitesmoke;
+}
+
+.list {
+    height : 200px;
+    width : 18%;
+    overflow : hidden;
+    overflow-y : scroll;
+}
+
+.form1 {
+    border-color : darkblue;
+    background-color : antiquewhite;
+    border : 3px solid;
+
+}
+
+#addProdForm {
+    border : 3px solid;
+    padding : 2px;
+    border-color : darkblue;
+    background-color : lightgrey;
+}

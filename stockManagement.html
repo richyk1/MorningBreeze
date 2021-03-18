@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Stock management</title>
+    <link rel="stylesheet" type="text/css" href="stockManagement.css">
+    <script type="text/javascript" src="stockManagement.js"></script>
+    <script type="text/javascript" src="stock.js"></script>
+    <script type="text/javascript" src="menu.js"></script>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="Beverages.js"></script>
+    <script type="text/javascript" src="DBLoaded.js"></script>
+  </head>
+  <body>
+    <div id="selectFun">
+      <div class="stock1" id="prodAdd">
+	<button class="button1" id="addProduct" onclick="doAddProduct()">ADD A NEW PRODUCT</button>
+	Product name:
+	<span class="field1" id="productName1" contenteditable="true"></span>
+	Price:
+	<span class="field1" id="productPrice1" contenteditable="true"></span>
+	Quantity:
+	<span class="field1" id="productQuantity1" contenteditable="true"></span>
+      </div>
+
+      <div class="form1">
+	<h1>ADD A PRODUCT TO STOCK</h1>
+	<form id="addProdForm" action="">
+	  <label for="pname">Product name:</label>
+	  <input type="text" id="pname" name="pname" required><br><br>
+	  <label for="pprice">Price:</label>
+	  <input type="number" id="pprice" name="pprice" min="0" required><br><br>
+	  <label for="pquantity">Quantity:</label>
+	  <input type="number" id="pquantity" name="pquantity" min="0" required><br><br>
+	  <button class="button2" id="addProd" onclick="doAddProd()">Add product to stock</button>
+	</form>
+      </div>
+
+      <div class="stock1" id="prodRemove">
+	<button class="button1" id="removeProduct" onclick="doRemoveProduct()">REMOVE A PRODUCT</button>
+	Product name:
+	<span class="field1" id="productName2" contenteditable="true"></span>
+      </div>
+
+      <div class="stock1" id="price">
+	<button class="button1" id="changePrice" onclick="doChangePrice()">CHANGE PRICE</button>
+	Product name:
+	<span class="field1" id="productName3" contenteditable="true"></span>
+	New price:
+	<span class="field1" id="addPrice" contenteditable="true"></span>
+      </div>
+
+      <div class="stock1" id="quantity">
+	<button class="button1" id="changeQuantity" onclick="doAddOrRemoveQtInStock()">CHANGE QUANTITY</button>
+	Product name:
+	<span class="field1" id="productName4" contenteditable="true"></span>
+	Quantity to add or remove:
+	<span class="field1" id="addQuantity" contenteditable="true"></span>
+      </div>
+
+    </div>
+
+    <div class="stock1" id="seeAvailabilityOfAProd">
+      <button class="button1" id="seeAProductInStock" onclick="seeAvailabilityOfProduct()">SEE AVAILABILITY OF A PRODUCT</button>
+      Product name:
+      <span class="field1" id="productName5" contenteditable="true"></span>
+    </div>
+
+    <div class="stock1" id="refill">
+      <button class="button1" id="orderRefill" onclick="">ORDER REFILL</button>
+      Product name:
+      <span class="field1" id="productName6" contenteditable="true"></span>
+      Quantity to order:
+      <span class="field1" id="productQuantity6" contenteditable="true"></span>
+
+    </div>
+
+    <div class="list1" id="showStockList">
+      <button class="button1" id="stockList" onclick="listStock()">SHOW STOCK LIST</button>
+      <button class="button1" id="clearStockList" onclick="clearList()">CLEAR STOCK LIST</button>
+      <div id="list" ></div>
+    </div>
+
+    <div id="displayDB"></div>
+
+  </body>
+  </html>
