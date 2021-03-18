@@ -187,7 +187,7 @@ function checkout(event) {
     $('.cart-item').each(function(index, item) {
         var name = $(this).children('.cart-name').text();
         var quantity = $(this).children('.cart-quantity').children('.quantity').val();
-        //add_or_remove_qt_in_stock(name , quantity);
+        //add_or_remove_qt_in_stock(name , quantity); TODO: Funkar ej pga stock inte i main branch
         $(this).remove();
     });
 
