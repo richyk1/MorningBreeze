@@ -57,6 +57,7 @@ Palanquin = for text
  header {
      grid-area: header;
      display: grid;
+     background: #C6A85F;
      grid-template-rows: 70% auto;
      grid-template-columns: auto auto auto 15%;
  }
@@ -137,7 +138,7 @@ Palanquin = for text
      }
  }
 
- button#menu {
+ button.button-main {
      width: 50%;
      height: 25%;
      border: 1px solid #C6A85F;
@@ -152,13 +153,13 @@ Palanquin = for text
      display: none
  }
 
- button#menu:hover {
+ button.button-main:hover {
      width: 55%;
      height: 30%;
      background-color: #CB5E56;
  }
 
- button#menu h2 {
+ button.button-main h2 {
      margin: auto;
  }
 
@@ -545,6 +546,18 @@ Palanquin = for text
 
  .table:hover {
      padding: 2%;
+ }
+
+ #vip-customers {
+     display: none;
+ }
+
+ #login-vip {
+     display: none;
+ }
+
+ #login-guest {
+     display: none;
  }
 
  @media screen and (max-width: 768px) {

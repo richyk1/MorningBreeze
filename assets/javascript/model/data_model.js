@@ -46,7 +46,7 @@ class User {
      * @param {string} email A string containing the e-mail address of the user.
      * @param {number} phone A number representing the phone number of the user.
      */
-    constructor(credentials, password, username, first_name, last_name, email, phone) {
+    constructor(credentials, password, username, first_name, last_name, email, phone, account_balance, payFromAccount) {
         this.credentials = credentials;
         this.password = password;
         this.username = username;
@@ -54,6 +54,8 @@ class User {
         this.last_name = last_name;
         this.email = email;
         this.phone = phone;
+        this.account_balance = account_balance;
+        this.payFromAccount = payFromAccount;
     }
 }
 
@@ -93,7 +95,7 @@ class Data {
         this.payments = [];
         this.bought = [];
         this.sold = [];
-        this.cachedTable = 0;
+        this.currentUser;
 
         this.loadUsers = function () {
             loadJSON((response) => {
@@ -124,7 +126,9 @@ class Data {
                 foundUser.first_name,
                 foundUser.last_name,
                 foundUser.email,
-                foundUser.phone);
+                foundUser.phone,
+                Math.floor(Math.random() * 100), // Generates account balance between 0 and 100
+                false)
 
             return undefined;
         };
@@ -135,6 +139,14 @@ class Data {
 
         this.getCacheTable = function () {
             return this.cachedTable;
+        }
+
+        this.getCurrentUser = function () {
+            return this.currentUser;
+        }
+
+        this.setCurrentUser = function (user) {
+            this.currentUser = user;
         }
 
         /**

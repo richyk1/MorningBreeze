@@ -16,7 +16,7 @@
 <body>
     <div id="login-window">
         <div id="tint" onclick="untint()"></div>
-        <form autocomplete="off" onsubmit="return login_handler()">
+        <form autocomplete="off">
             <div id="login-field">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter Username" required autofocus>
@@ -121,8 +121,17 @@
                 </button>
             </div>
         </div>
+        <div id="vip-customers">
+            <button>Log out</button>
+            <span>Account Balance: </span>
+            <button>Order and Pay from account?</button>
+        </div>
         <div id="all-beverages"></div>
-        <button id="menu">
+        <button id="login-vip" class="button-main">
+            <h2>Login as VIP</h2></button>
+        <button id="login-guest" class="button-main">
+            <h2>Continue as Guest</h2></button>
+        <button id="menu" class="button-main">
             <h2>MENU</h2>
         </button>
     </main>

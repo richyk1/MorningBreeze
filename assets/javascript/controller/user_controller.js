@@ -17,23 +17,21 @@ async function digestMessage(message) {
  * Handles the login-process.
  * @returns {boolean} A boolean indicating if the login process succeeded or if it didn't.
  */
-async function login_handler() {
+async function login_handler(event) {
+
+    event.preventDefault();
     const userInfo = db.getUser($('#username').val());
     const enteredPassword = await digestMessage($('#password').val());
 
     if (userInfo == undefined) {
         show_incorrect();
-        return false;
     }
     else if (userInfo.password != enteredPassword) {
         show_incorrect();
-        return false;
     }
     else if (userInfo.password == enteredPassword) {
         show_correct(userInfo);
     }
-
-    return false;
 }
 
 function show_incorrect() {
@@ -46,15 +44,17 @@ function show_incorrect() {
  * @param {User} user User object containing information about the current user.
  */
 function show_correct(user) {
+    db.setCurrentUser(user);
     switch (user.credentials) {
         case ACCESS_LEVELS.VIP:
-            window.location.href = "vip.html?user=" + user.username;
-            break;
-        case ACCESS_LEVELS.MANAGER:
-            window.location.href = "manager.html?user=" + user.username;
+            $('#login-window').css("display", "none");
             break;
         default:
             window.location.href = "index.html"
             break;
     }
 }
+
+jQuery(function () {
+    $('form').on('submit', login_handler);
+});

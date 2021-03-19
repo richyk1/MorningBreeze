@@ -102,7 +102,10 @@ function occupyTableOnClick() {
     const tableNumber = Number($(this).text().trim());
     db.setCacheTable(tableNumber);
     $('div#table-window').css("display", "none");
-    $('button#menu').css("display", "grid");
+    $('div.dropdown').css("display", "none");
+    $('button#login-vip').css("display", "grid");
+    $('button#login-guest').css("display", "grid");
+    $('nav h1').text('Your table: ' + tableNumber);
 }
 
 function removeCartItem(event) {
