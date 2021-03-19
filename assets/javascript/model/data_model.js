@@ -65,7 +65,8 @@ class Beverage {
      * @param {string} imageUrl URL of beverage image.
      * @param {string} taste Some information about the product.
      */
-    constructor(productNameBold, productNameThin, imageUrl, taste, usage, country, price) {
+    constructor(productId, productNameBold, productNameThin, imageUrl, taste, usage, country, price) {
+        this.productId = productId;
         this.imageUrl = imageUrl;
         this.productNameBold = productNameBold; 
         if(productNameThin) this.productNameThin = productNameThin;
@@ -84,6 +85,20 @@ const ACCESS_LEVELS = {
     VIP: "3",
     REGULAR: "4"
 }
+
+var cart = [];
+
+function pushStack(cartItem) {
+    stack.push(cartItems);
+}
+
+function popStack(cartItem) {
+    var lastStack = stack.pop()
+
+    cartItems = lastStack ? lastStack : cartItems
+}
+
+
 
 /** Class responsible for extracting relevant information from databases */
 class Data {
@@ -105,7 +120,7 @@ class Data {
             loadJSON((response) => {
                 const parsedResponse = JSON.parse(response);
                 Array.from(parsedResponse.products).forEach((value) => {
-                    this.beverages.push(new Beverage(value.productNameBold, value.productNameThin, value.images[0].imageUrl, value.taste,
+                    this.beverages.push(new Beverage(value.productId, value.productNameBold, value.productNameThin, value.images[0].imageUrl, value.taste,
                         value.usage, value.country, value.price));
                 })
             }, 'database/morningbreeze_beers.json');
@@ -147,6 +162,8 @@ class Data {
         }
     }
 }
+
+
 
 const db = new Data();
 db.loadUsers();
