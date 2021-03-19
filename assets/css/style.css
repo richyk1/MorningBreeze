@@ -554,3 +554,15 @@ Palanquin = for text
          grid-template-areas: "header header header header" "main main main main" "sidebar sidebar sidebar sidebar" "footer footer footer footer";
      }
  }
+
+ @media screen and (max-width: 1600px) {
+     #all-beverages {
+         grid-template-columns: 1fr 1fr;
+     }
+ }
+
+@media screen and (max-width: 1180px) {
+     #all-beverages {
+         grid-template-columns: 1fr;
+     }
+ }
