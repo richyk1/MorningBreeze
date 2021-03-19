@@ -1,5 +1,5 @@
 /**
- * Returns a list of the beverages in the database DB2 whose 'varugrupp' contains 'tag' as a substring.
+ * Get a list of beverages (with relevant information) in the database DB2 whose 'varugrupp' contains 'tag' as a substring.
  * Not case sensitive. Be careful with usage: vinsprit contains vin.
  *
  * Some possible swedish tag categories, based on findings in the database DB2:
@@ -10,8 +10,8 @@
  * NON ALCOHOLIC: Alkoholfri, Vatten, Alkoholfritt
  *
  * @param tag A String with the specific type of beverage (in swedish) that is searched for in the database DB2
- * @returns An Array containing the corresponding products, if any
- * */
+ * @returns An Array where each element is an array with a corresponding beverage's name and pertinent information for the menu.
+ */
 function allTaggedDrinks(tag) {
 
     var collector = [];
