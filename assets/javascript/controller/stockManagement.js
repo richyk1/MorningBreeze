@@ -83,7 +83,7 @@ function listStock() {
 /**
  * Controller: Create a list of products in stock
  * @param items An array of items to be listed
- * @param parent The list
+ * @param parent HTML DOM element where the list shall be placed 
  */
 function createList(items, parent){
     var ul  = document.createElement('ul');
