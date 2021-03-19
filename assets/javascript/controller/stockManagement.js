@@ -12,14 +12,10 @@ function doAddProduct() {
 
 function doAddProd() {
     var name = document.getElementById('pname').value;
-    alert(name);
     var price = document.getElementById('pprice').value;
-    alert(price);
     var quantity = document.getElementById('pquantity').value;
-    alert(quantity);
     var description = getDescription(name);
     var prod = new Product(name, description, price, quantity);
-    alert(prod.name);
     add_product_to_stock(prod);
 }
 
@@ -60,6 +56,7 @@ function seeAvailabilityOfProduct() {
 }
 
 function listStock() {
+    clearList();
     var stockArray = getStockArray();
     var stockList = document.getElementById('list');
     createList(stockArray, stockList);
