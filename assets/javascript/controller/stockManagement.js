@@ -1,30 +1,54 @@
+/**
+ * Controller: Add a product to stock
+ */
 function doAddProduct() {
     var name = $("#productName1").text(); //Hämta argumentet i något html-element
     var price = $("#productPrice1").text();
     var quantity = $("#productQuantity1").text();
     var description = getDescription(name);
-    var prod = new Product(name, description, price, quantity);
-    add_product_to_stock(prod);
-    $("#productName1").empty();
-    $("#productPrice1").empty();
-    $("#productQuantity1").empty();
+    if (description.length > 0) {
+	var prod = new Product(name, description, price, quantity);
+	add_product_to_stock(prod);
+	$("#productName1").empty();
+	$("#productPrice1").empty();
+	$("#productQuantity1").empty();
+    }
+    else {
+	msg = "Product not found in database of possible products.";
+	alert(msg);
+    }
 }
 
+/**
+ * Controller: Add a product to stock
+ */
 function doAddProd() {
     var name = document.getElementById('pname').value;
     var price = document.getElementById('pprice').value;
     var quantity = document.getElementById('pquantity').value;
     var description = getDescription(name);
-    var prod = new Product(name, description, price, quantity);
-    add_product_to_stock(prod);
+    if (description.length > 0) {
+	var prod = new Product(name, description, price, quantity);
+	add_product_to_stock(prod);
+    }
+    else {
+	msg = "Product not found in database of possible products.";
+	alert(msg);
+    }
 }
 
+/**
+ * Controller: Remove a product from stock
+ */
 function doRemoveProduct() {
     var productName = $("#productName2").text();
     remove_product_from_stock(productName);
     $("#productName2").empty();
 }
 
+/**
+ * Controller: Change the price of a product
+ */
 function doChangePrice() {
     var productName = $("#productName3").text();
     var temp = $("#addPrice").text();
@@ -34,6 +58,9 @@ function doChangePrice() {
     $("#addPrice").empty();
 }
 
+/**
+ * Controller: Add or remove quantity in stock
+ */
 function doAddOrRemoveQtInStock() {
     var productName = $("#productName4").text();
     var temp = $("#addQuantity").text();
@@ -43,18 +70,9 @@ function doAddOrRemoveQtInStock() {
     $("#addQuantity").empty();
 }
 
-function seeAvailabilityOfProduct() {
-    var productName = $("#productName5").text();
-    var arr = getAProductInStock(productName);
-    var temp = arr[0];
-    if (temp != undefined) {
-	var qt = temp.quantity;
-	msg = productName + ": " + qt;
-	alert(msg)
-    }
-    $("#productName5").empty();
-}
-
+/**
+ * Controller: List the products in stock
+ */
 function listStock() {
     clearList();
     var stockArray = getStockArray();
@@ -62,6 +80,11 @@ function listStock() {
     createList(stockArray, stockList);
 }
 
+/**
+ * Controller: Create a list of products in stock
+ * @param items An array of items to be listed
+ * @param parent The list
+ */
 function createList(items, parent){
     var ul  = document.createElement('ul');
     parent.appendChild(ul);
@@ -72,6 +95,30 @@ function createList(items, parent){
     });
 }
 
+/**
+ * Controller: Clear the stock list with id 'list'
+ */
 function clearList() {
     $("#list").empty();
+}
+
+/**
+ * Controller: Order a refill of a product
+ */
+function doOrderRefill() {
+    var name = $("#productName5").text();
+    var quantity = $("#productQuantity5").text();
+    if (quantity > 0) {
+	orderRefill(name, quantity);
+	$("#productName5").empty();
+	$("#productQuantity5").empty();
+	msg = "Order placed.";
+	alert(msg);
+    }
+    else {
+	$("#productName5").empty();
+	$("#productQuantity5").empty();
+	msgErr = "Insufficient quantity";
+	alert(msgErr);
+    }
 }

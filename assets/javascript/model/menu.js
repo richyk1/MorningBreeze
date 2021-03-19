@@ -1,14 +1,17 @@
-// Returns a list of the beverages in the database whose varugrupp contains tag as a substring.
-// Returned list will contain generic information for all elements.
-// Not case sensitive. Be careful with usage: vinsprit contains vin.
-// Everything is ONLY IN SWEDISH for the moment.
-// Some possible swedish tag categories, based on findings in the database:
-// BOOZE: Cognac, sprit, Rom, Whisky, Grappa, Brandy, Vinsprit, Calvados, Sprit, Marc, Gin, Armagnac,
-// Sake, Likör, Genever, Bourbon, Punsch, Bitter, Drinkar och Cocktails
-// BEER AND CIDER: Öl, Ale, lager, Cider, Blanddrycker, Porter och Stout, Veteöl, Mjöd, Specialöl, Fruktvin
-// WINE: Rosévin, Rosé, Aperitif, Vin, Portvin, Sherry, Madeira, Montilla, Bual, Sercial, Vermouth, Malvoisie/Malmsey, Glögg, Glühwein, starkvin
-// NON ALCOHOLIC: Alkoholfri, Vatten, Alkoholfritt
-//
+/**
+ * Returns a list of the beverages in the database DB2 whose 'varugrupp' contains 'tag' as a substring.
+ * Not case sensitive. Be careful with usage: vinsprit contains vin.
+ *
+ * Some possible swedish tag categories, based on findings in the database DB2:
+ * BOOZE: Cognac, sprit, Rom, Whisky, Grappa, Brandy, Vinsprit, Calvados, Sprit, Marc, Gin, Armagnac,
+ * Sake, Likör, Genever, Bourbon, Punsch, Bitter, Drinkar och Cocktails
+ * BEER AND CIDER: Öl, Ale, lager, Cider, Blanddrycker, Porter och Stout, Veteöl, Mjöd, Specialöl, Fruktvin
+ * WINE: Rosévin, Rosé, Aperitif, Vin, Portvin, Sherry, Madeira, Montilla, Bual, Sercial, Vermouth, Malvoisie/Malmsey, Glögg, Glühwein, starkvin
+ * NON ALCOHOLIC: Alkoholfri, Vatten, Alkoholfritt
+ *
+ * @param tag A String with the specific type of beverage (in swedish) that is searched for in the database DB2
+ * @returns An Array containing the corresponding products, if any
+ * */
 function allTaggedDrinks(tag) {
 
     var collector = [];
@@ -29,32 +32,48 @@ function allTaggedDrinks(tag) {
     return collector;
 }
 
-//Get list of non alcoholic beverages with some generic data.
+/**
+ *  Get an array of non alcoholic beverages (0.00 - 2.25 ‰ alc.) in the database DB2
+ *  @returns An array of Product
+ */
 function nonAlcoholic() {
     var collector = sectionBeverages(0.00, 2.25);
     return collector;
 }
 
-//Get list of beer and cider with some generic data.
+/**
+ * Get an array of beer and cider (2.26 ‰ - 10.00 ‰ alc.) in the database DB2
+ * @returns An array of Product
+ */
 function beerAndCider() {
     var collector = sectionBeverages(2.26, 10.00);
     return collector;
 }
 
-//Get list of wine (including strong wine) with some generic data.
+/**
+ * Get an array of wine, including strong wine, (10.01 ‰ - 22.00 ‰ alc.) in the database DB2
+ * @returns An array of Product
+ */
 function wineInclStrong() {
     var collector = sectionBeverages(10.01, 22.00);
     return collector;
 }
 
-//Get list of booze and other very strong alcohols with some generic data.
+/**
+ * Get list of booze and other very strong alcohols (22.01 ‰ - 80.00 ‰ alc.) in the database DB2
+ * @returns An array of Product
+ */
 function booze() {
     var collector = sectionBeverages(22.01, 80.00);
     return collector;
 }
 
-//Get beverages with alcoholic content from minStrength (inclusive) to maxStrength (inclusive).
-//Returns array with some generic data.
+/**
+ * Get beverages in the database DB2 within a range of alcoholic content.
+ * @param minStrength The inclusive lower bound of the alcoholic range
+ * @param maxStrength The inclusive upper bound of the alcoholic range
+ * @returns An array of Product in DB2 whose alcoholic content is within the range
+ */
 function sectionBeverages(minStrength, maxStrength) {
 
     var collector = [];
@@ -71,10 +90,10 @@ function sectionBeverages(minStrength, maxStrength) {
     return collector;
 }
 
-// =====================================================================================================
-// Lists all beverage types in the database. As you will see, there are quite a few, and you might want
-// select only a few of them for your data.
-//
+/**
+ * Lists all beverage types in the database DB2
+ * @returns An Array of unique beverage types (varugrupp) in DB2
+ */
 function beverageTypes() {
     var types = [];
     for (i = 0; i < DB2.spirits.length; i++) {
@@ -83,10 +102,12 @@ function beverageTypes() {
     return types;
 }
 
-// =====================================================================================================
-// Adds an item to a set, only if the item is not already there.
-// The set is modelled using an array.
-//
+/**
+ * Adds an item to a set, only if the item is not already there
+ * @param set An array modelling the set
+ * @param item The item to add to the set
+ * @returns a set modelled as an Array containing unique items
+ */
 function addToSet(set, item) {
     if (!set.includes(item)) {
 	set.push(item);
@@ -94,9 +115,11 @@ function addToSet(set, item) {
     return set;
 }
 
-// =====================================================================================================
-// Convenience function to change "xx%" into the percentage in whole numbers (non-strings).
-//
+/**
+ * Convenience function to change "xx%" into the percentage in whole numbers (non-strings)
+ * @param percentStr The String representation of the percentage
+ * @returns A Number representation of percentStr
+ */
 function percentToNumber(percentStr) {
     return Number(percentStr.slice(0,-1));
 }

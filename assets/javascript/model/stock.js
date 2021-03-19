@@ -1,9 +1,24 @@
-// Global variable for stock. Contains array of Product.
+/**
+ * Global variable for stock. Contains array of Product.
+ */
 let stock = {
     "products" : []
 }
 
-// Product is an element in stock["products"].
+/**
+ * Global variable for refill orders. Contains an array of arrays containing a product name and a quantity to order.
+ */
+let refill = {
+    "order" : []
+}
+
+/**
+ * Constructor for Product. A Product is an element in stock["products"].
+ * @param name The name of the product
+ * @param description An array returned from the function call getDescription(name)
+ * @param price The product's price
+ * @param quantity The quantity of product in stock
+ */
 function Product(name, description, price, quantity) {
     this.name = name;
     this.description = description;
@@ -11,7 +26,11 @@ function Product(name, description, price, quantity) {
     this.quantity = quantity;
 }
 
-//Change the price of a product in stock.
+/**
+ * Change the price of a product in stock
+ * @param product_name The product's name
+ * @param price The new price of the product
+ */
 function change_product_price(product_name, price) {
     var temp = stock["products"];
     var found = temp.find(found => found.name === product_name );
@@ -19,13 +38,16 @@ function change_product_price(product_name, price) {
     if (typeof(found) != "undefined") {
 	found.price = price;
     } else {
-	var error_msg = "Product name not in list.";
+	var error_msg = "Product name not in stock list.";
 	alert(error_msg);
     }
 }
 
-// Add/remove quantity to/from a product in stock.
-// If qt_to_add_or_remove is negative, quantity is removed. Else quantity is added.
+/**
+ * Add or remove quantity of a product in stock
+ * @param product_name The product's name
+ * @param qt_to_add_or_remove The quantity of product to add (if quantity is positive) or remove (if quantity is negative)
+ */
 function add_or_remove_qt_in_stock(product_name, qt_to_add_or_remove) {
     var temp = stock["products"];
     var found = temp.find(found => found.name === product_name );
@@ -40,12 +62,15 @@ function add_or_remove_qt_in_stock(product_name, qt_to_add_or_remove) {
 	    alert(error_msg1);
 	}
     } else {
-	var error_msg2 = "Product name not in list.";
+	var error_msg2 = "Product name not in stock list.";
 	alert(error_msg2);
     }
 }
 
-//Add a new product to stock.
+/**
+ * Add a new product to stock
+ * @param product The Product to add to stock
+ */
 function add_product_to_stock(product) {
     var temp = stock["products"];
     var found = temp.find(found => found.name === product.name );
@@ -53,12 +78,15 @@ function add_product_to_stock(product) {
     if (typeof(found) == "undefined") {
 	temp.push(product);
     } else {
-	var error_msg = "Product name already in list.";
+	var error_msg = "Product name already in stock list.";
 	alert(error_msg);
     }
 }
 
-//Remove a product from stock
+/**
+ * Remove a product from stock
+ * @param product_name The name of the product to remove
+ */
 function remove_product_from_stock(product_name) {
     var temp = stock["products"];
     var i = 0;
@@ -72,16 +100,20 @@ function remove_product_from_stock(product_name) {
     }
 
     if (ind >= 0) { //If index >= 0 then product is in stock
-	temp.splice(ind, 1); //Remove product
+	temp.splice(ind, 1); //Remove product from stock
     } else {
-	var error_msg = "Product name not in list."
+	var error_msg = "Product name not in stock list."
 	alert(error_msg);
     }
 }
 
-//Get an array with the description (pertinent info only) of a product from DB2.
-//so that the array can be inserted as the attribute 'description' when creating a product
-//that shall be put into stock
+
+/**
+ * Get an array with selected information describing a product from the database DB2
+ * The information in the array is pertinent for display on menu
+ * @param productName The name of the product
+ * @returns An array with information about the product
+ */
 function getDescription(productName) {
     var collector = [];
     var spirits = DB2["spirits"];
@@ -95,13 +127,17 @@ function getDescription(productName) {
 	}
     }
 
-    var error_msg = "Product name not in list.";
+    var error_msg = "Product name not in database of possible products.";
     alert(error_msg);
 
     return collector;
 }
 
-//Get all products in stock whose 'varutyp' in DB2 contains tag as a substring
+/**
+ * Get all products in stock whose 'varugrupp' in the database DB2 contains tag as a substring
+ * @param tag A string with the specific type of beverage that is searched for in stock
+ * @returns An array containing the corresponding products, if any
+ */
 function getTaggedDrinksInStock(tag) {
 
     var collector = [];
@@ -123,32 +159,48 @@ function getTaggedDrinksInStock(tag) {
     return collector;
 }
 
-//For stock: Get list of non alcoholic beverages with some generic data.
+/**
+ *  Get an array of non alcoholic beverages (0.00 - 2.25 ‰ alc.) in stock
+ *  @returns An array of Product
+ */
 function nonAlc() {
     var collector = sectionDrinks(0.00, 2.25);
     return collector;
 }
 
-//For stock: Get list of beer and cider with some generic data.
+/**
+ * Get an array of beer and cider (2.26 ‰ - 10.00 ‰ alc.) in stock
+ * @returns An array of Product
+ */
 function beerCider() {
     var collector = sectionDrinks(2.26, 10.00);
     return collector;
 }
 
-//For stock: Get list of wine (including strong wine) with some generic data.
+/**
+ * Get an array of wine, including strong wine, (10.01 ‰ - 22.00 ‰ alc.) in stock
+ * @returns An array of Product
+ */
 function wines() {
     var collector = sectionDrinks(10.01, 22.00);
     return collector;
 }
 
-//For stock: Get list of booze and other very strong alcohols with some generic data.
+/**
+ * Get list of booze and other very strong alcohols (22.01 ‰ - 80.00 ‰ alc.) in stock
+ * @returns An array of Product
+ */
 function strongest() {
     var collector = sectionDrinks(22.01, 80.00);
     return collector;
 }
 
-//For stock: Get beverages with alcoholic content from minStrength (inclusive) to maxStrength (inclusive).
-//Returns array with some generic data.
+/**
+ * Get beverages in stock within a range of alcoholic content.
+ * @param minStrength The inclusive lower bound of the alcoholic range
+ * @param maxStrength The inclusive upper bound of the alcoholic range
+ * @returns An array of Product in stock whose alcoholic content is within the range
+ */
 function sectionDrinks(minStrength, maxStrength) {
 
     var collector = [];
@@ -167,9 +219,10 @@ function sectionDrinks(minStrength, maxStrength) {
     return collector;
 }
 
-// =====================================================================================================
-// Lists all beverage types in stock.
-//
+/**
+ * Lists all beverage types in stock
+ * @returns An Array of String where each element is a unique beverage type in stock
+ */
 function typesDrinks() {
     var types = [];
     var products = stock["products"];
@@ -178,11 +231,13 @@ function typesDrinks() {
 	var temp = products[i].description;
 	addToSet(types, temp[4]);
     }
-
     return types;
 }
 
-//Get array with products in stock, ordered by category (non alcoholic etc.).
+/**
+ * Get array with products in stock, ordered by category according to four alcoholic strengths
+ * @returns An array of Product in stock
+ */
 function getStockArray() {
     var n = nonAlc();
     var b = beerCider();
@@ -197,7 +252,11 @@ function getStockArray() {
     return collector;
 }
 
-//Get an array containing a specific product in stock.
+/**
+ * Get an array containing a specific product in stock
+ * @param productName The name of the product to find in stock
+ * @returns An array containing a single Product in stock that has the productName, or an empty array if the product is not in stock
+ */
 function getAProductInStock(productName) {
     var collector = [];
     var nameLower = productName.toLowerCase();
@@ -210,7 +269,19 @@ function getAProductInStock(productName) {
 	    return collector;
 	}
     }
-    var msg = "Product name not in list.";
+    var msg = "Product name not in stock list.";
     alert(msg);
     return collector;
+}
+
+/**
+ * Put a refill order in the Refill var.
+ * @param productName The name of the product to refill
+ * @param quantityToOrder The quantity of product to order
+ */
+function orderRefill(productName, quantityToOrder) {
+    var quantity = parseInt(quantityToOrder);
+    var collector = [];
+    collector.push(productName);
+    collector.push(quantity);
 }
