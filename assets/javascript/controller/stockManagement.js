@@ -20,24 +20,6 @@ function doAddProduct() {
 }
 
 /**
- * Controller: Add a product to stock
- */
-function doAddProd() {
-    var name = document.getElementById('pname').value;
-    var price = document.getElementById('pprice').value;
-    var quantity = document.getElementById('pquantity').value;
-    var description = getDescription(name);
-    if (description.length > 0) {
-	var prod = new Product(name, description, price, quantity);
-	add_product_to_stock(prod);
-    }
-    else {
-	msg = "Product not found in database of possible products.";
-	alert(msg);
-    }
-}
-
-/**
  * Controller: Remove a product from stock
  */
 function doRemoveProduct() {
