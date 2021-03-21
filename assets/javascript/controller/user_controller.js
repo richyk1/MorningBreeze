@@ -36,7 +36,15 @@ async function login_handler(event) {
 
 function show_incorrect() {
     $('#error_msg').css("display", "block");
+}
 
+function show_vip_customer() {
+    $('main').children().each(function(index) {
+        $(this).css("display", "none");
+    })
+
+    db.getCurrentUser().UpdateBalance();
+    $('#vip-customer').css("display", "grid");
 }
 
 /**
@@ -48,6 +56,7 @@ function show_correct(user) {
     switch (user.credentials) {
         case ACCESS_LEVELS.VIP:
             $('#login-window').css("display", "none");
+            show_vip_customer();
             break;
         default:
             window.location.href = "index.html"
@@ -57,4 +66,10 @@ function show_correct(user) {
 
 jQuery(function () {
     $('form').on('submit', login_handler);
+    $('.btn.toggle').on('click', function() {
+        db.getCurrentUser().PayFromAccount();
+    });
+    $('button.logout').on('click', function() {
+        db.getCurrentUser().Logout();
+    });
 });

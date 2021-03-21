@@ -37,13 +37,11 @@
         </div>
         <nav>
             <div class="menu-button-wrapper">
-                <button class="btn btn-nav" onclick="sendHome()">Home</button>
+                <button class="btn btn-nav" id="button-home">Home</button>
             </div>
             <h1>Choose your table: </h1>
         </nav>
-        <div class="dropdown">
-            <button class="dropbtn btn" onclick="show_login()">Login</button>
-        </div>
+        <button class="btn login-vip">Login</button>
 
     </header>
     <main>
@@ -121,13 +119,15 @@
                 </button>
             </div>
         </div>
-        <div id="vip-customers">
-            <button>Log out</button>
-            <span>Account Balance: </span>
-            <button>Order and Pay from account?</button>
+        <div id="vip-customer">
+            <button class="btn logout">Log out</button>
+            <div id="vip-settings">
+                <button class="btn toggle">Order and Pay from account?</button>
+                <span id="account-balance">Account Balance: </span>
+            </div>
         </div>
         <div id="all-beverages"></div>
-        <button id="login-vip" class="button-main">
+        <button class="button-main login-vip">
             <h2>Login as VIP</h2></button>
         <button id="login-guest" class="button-main">
             <h2>Continue as Guest</h2></button>

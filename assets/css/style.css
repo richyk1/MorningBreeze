@@ -54,6 +54,10 @@ Palanquin = for text
      max-height: 100%;
  }
 
+ span {
+     font-family: Ubuntu;
+ }
+
  header {
      grid-area: header;
      display: grid;
@@ -122,9 +126,7 @@ Palanquin = for text
      grid-area: main;
      background-color: #E2E299;
      display: grid;
-     /* justify-items: center;
-     align-items: center; */
-     grid-template-rows: auto min-content;
+     grid-template-rows: 1fr 1fr;
      animation: fadein 0.5s;
      overflow: auto;
  }
@@ -133,29 +135,26 @@ Palanquin = for text
      from {
          opacity: 0;
      }
+
      to {
          opacity: 1;
      }
  }
 
  button.button-main {
-     width: 50%;
-     height: 25%;
      border: 1px solid #C6A85F;
      background-color: black;
      color: white;
      font-family: Ubuntu;
      font-size: 4em;
-     /* display: grid; */
-     padding: 0;
+     padding: 1%;
      margin: auto;
      transition: 0.5s;
      display: none
  }
 
  button.button-main:hover {
-     width: 55%;
-     height: 30%;
+     height: 55%;
      background-color: #CB5E56;
  }
 
@@ -202,7 +201,7 @@ Palanquin = for text
      height: 100%;
      grid-template-rows: 25% minmax(75%, auto) min-content;
      grid-template-columns: auto auto auto 15%;
-     grid-template-areas: "header header header header" "main main main sidebar" "footer footer footer footer";
+     grid-template-areas: "header header header header""main main main sidebar""footer footer footer footer";
  }
 
  div#submit>input {
@@ -380,47 +379,6 @@ Palanquin = for text
      margin: auto;
  }
 
- .dropdown {
-     grid-row: 2;
-     grid-column: 4;
-     display: flex;
-     background-color: #687DA2;
-     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-     flex-direction: column;
-     outline: solid 1px #E2E299;
- }
-
- .dropdown>button {
-     height: 100%;
- }
-
- .dropbtn {
-     flex: 1 0 auto;
-     height: 100%;
-     z-index: 2;
- }
-
- .dropdown-content {
-     background-color: #f9f9f9;
-     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.6);
-     width: 100%;
-     flex: 1 0 auto;
-     flex-direction: column;
-     z-index: 1;
-     min-height: 0%;
-     opacity: 0;
-     visibility: hidden;
-     display: flex;
-     transition: all 0.2s;
- }
-
- .dropdown:hover .dropdown-content {
-     visibility: visible;
-     opacity: 1;
-     min-height: 100%;
-     display: flex;
- }
-
  .menu-button-wrapper {
      width: 100%;
      height: 100%;
@@ -481,7 +439,8 @@ Palanquin = for text
      flex-direction: column;
  }
 
- div#login-window form input[type=text], input[type=password] {
+ div#login-window form input[type=text],
+ input[type=password] {
      padding: 12px 20px;
      border: 1px solid #ccc;
      box-sizing: border-box;
@@ -507,7 +466,8 @@ Palanquin = for text
      grid-template-rows: 1fr 1fr 1fr;
      align-items: center;
      justify-items: center;
-
+     grid-row-start: 1;
+     grid-row-end: 3;
      background-image: url("../images/topography.svg")
  }
 
@@ -526,18 +486,18 @@ Palanquin = for text
  }
 
  .table-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    outline: none;
-    cursor: pointer;
-    overflow: hidden;
-    background: transparent;
-    border-radius: 50%;
-    font-family: Ubuntu;
-    font-weight: bold;
-    transition: border-radius 0.2s;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     outline: none;
+     cursor: pointer;
+     overflow: hidden;
+     background: transparent;
+     border-radius: 50%;
+     font-family: Ubuntu;
+     font-weight: bold;
+     transition: border-radius 0.2s;
  }
 
  .table-available:hover .table-button {
@@ -548,8 +508,27 @@ Palanquin = for text
      padding: 2%;
  }
 
- #vip-customers {
-     display: none;
+ #vip-customer {
+    display: none;
+    width: 50%;
+    align-self: auto;
+    gap: 1em;
+    justify-self: center;
+    grid-template-rows: 1fr 5fr;
+    border: 1px dotted #C6A85F;
+ }
+
+ #vip-settings {
+     width: 50%;
+     justify-self: center;
+ }
+
+ #vip-settings * {
+     width: 100%;
+ }
+
+ span#account-balance {
+     text-align: center;
  }
 
  #login-vip {
@@ -560,10 +539,19 @@ Palanquin = for text
      display: none;
  }
 
+ .toggle {
+     background-color: #CB5E56;
+     transition: background 0.2s;
+ }
+
+ .toggle:hover {
+     cursor: pointer;
+ }
+
  @media screen and (max-width: 768px) {
      body {
          grid-template-rows: 25% auto 10% minmax(5%, 7%);
          grid-template-columns: auto auto auto auto;
-         grid-template-areas: "header header header header" "main main main main" "sidebar sidebar sidebar sidebar" "footer footer footer footer";
+         grid-template-areas: "header header header header""main main main main""sidebar sidebar sidebar sidebar""footer footer footer footer";
      }
  }

@@ -1,10 +1,3 @@
-/**
- * 
- */
-function sendHome() {
-    window.location.href = "index.html";
-}
-
 function untint() {
     $("div#login-window").animate({
         opacity: 0,
@@ -25,7 +18,7 @@ function untint() {
 /**
  * Shows the login box
  */
-function show_login(privilageLevel) {
+function show_login() {
     $('div#login-window').css("display", "flex");
     $("div#login-window").animate({
         opacity: 1,
@@ -34,23 +27,19 @@ function show_login(privilageLevel) {
         document.getElementById('username').focus();
     });
 
-
     $("div#tint").animate({
         opacity: 0.5,
     }, 200, function () {
-        // Animation complete. Show login window
 
     });
 }
 
-// Controller-view relationship
-
-function menuOnClick(event) {
+function show_menu() {
         /**
          * @const
          * @type {Beverage[]} 
          */
-        const beverages = event.data.beverages;
+        const beverages = db.getBeverages();
 
         beverages.forEach(function (beverage) {
             const beverageDOM = `
@@ -89,7 +78,8 @@ function menuOnClick(event) {
         });
 
         $('div#all-beverages').css("display", "grid");
-        $(this).css("display", "none");
+        $('button.login-vip').css("display", "none");
+        $('button#login-guest').css("display", "none");
 
         /*
             Vi lägger till en addEventListener till alla knappar som använder sig av
@@ -103,7 +93,8 @@ function occupyTableOnClick() {
     db.setCacheTable(tableNumber);
     $('div#table-window').css("display", "none");
     $('div.dropdown').css("display", "none");
-    $('button#login-vip').css("display", "grid");
+    $('button.login-vip').css("display", "grid");
+    $('button.btn.login-vip').css("display", "block");
     $('button#login-guest').css("display", "grid");
     $('nav h1').text('Your table: ' + tableNumber);
 }
@@ -173,8 +164,29 @@ function cartTotal() {
     $('span#total-price').text(total + " kr");
 }
 
+function buttonOnClick(event) {
+    switch(event.data.button) {
+        case "menu":
+            show_menu();
+        case "login-vip":
+            show_login();
+            break;
+        case "login-guest":
+            show_menu();
+            break;
+        default:
+            break;
+    }
+}
+
 jQuery(function () {
-    $('button#menu').on('click', { beverages: db.beverages }, menuOnClick);
+    $('button#menu').on('click', { button: "menu" }, buttonOnClick);
+    $('button.login-vip').on('click', { button: "login-vip" }, buttonOnClick);
+    $('button#login-guest').on('click', { button: "login-guest" }, buttonOnClick);
+    $('button#button-home').on('click', function() {
+        window.location.href = "index.html";
+    });
+
     $('.table-button').each(function(index) {
         const rand = Math.round(Math.random());
         if(rand) {

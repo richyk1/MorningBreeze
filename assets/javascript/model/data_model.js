@@ -56,6 +56,21 @@ class User {
         this.phone = phone;
         this.account_balance = account_balance;
         this.payFromAccount = payFromAccount;
+
+        this.PayFromAccount = function() {
+            this.payFromAccount = !this.payFromAccount;
+            if(this.payFromAccount) $('.btn.toggle').css("background-color", "#CB5E56");
+            else $('.btn.toggle').css("background-color", "#56cb5a");
+        }
+
+        this.UpdateBalance = function() {
+            $('#account-balance').text("Account balance: " + this.account_balance);
+        }
+
+        this.Logout = function() {
+            this.currentUser = null;
+            window.location.href = "index.html";
+        }
     }
 }
 
@@ -107,8 +122,12 @@ class Data {
             loadJSON((response) => {
                 const parsedResponse = JSON.parse(response);
                 Array.from(parsedResponse.products).forEach((value) => {
-                    this.beverages.push(new Beverage(value.productNameBold, value.productNameThin, value.images[0].imageUrl, value.taste,
-                        value.usage, value.country, value.price));
+                    try {
+                        this.beverages.push(new Beverage(value.productNameBold, value.productNameThin, value.images[0].imageUrl, value.taste,
+                            value.usage, value.country, value.price));
+                    } catch (error) {
+                        // We aren't handling the error, because we can just skip that iteration without an image.
+                    }
                 })
             }, 'database/morningbreeze_beers.json');
         };
@@ -148,6 +167,8 @@ class Data {
         this.setCurrentUser = function (user) {
             this.currentUser = user;
         }
+
+        this.getBeverages = function() { return this.beverages };
 
         /**
          * Retrieves beverage by name.
