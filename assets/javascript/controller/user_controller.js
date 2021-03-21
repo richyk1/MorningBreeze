@@ -1,3 +1,8 @@
+/**
+ * File: user_controller.js
+ * Group: Morning Breeze
+ * The file contains the controller functions related to the different types of users and their credentials.
+ */
 
 /**
  * Simple hashing function for hashing passwords.
@@ -42,7 +47,7 @@ function show_incorrect() {
 }
 
 /**
- * 
+ * Set the href (URL) of the current page depending on the current user's credentials.
  * @param {User} user User object containing information about the current user.
  */
 function show_correct(user) {
@@ -58,3 +63,7 @@ function show_correct(user) {
             break;
     }
 }
+
+/**
+ * END of file user_controller.js
+ */

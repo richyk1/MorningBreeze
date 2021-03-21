@@ -1,13 +1,24 @@
-// This is a template file for the use of data from JSON files. It is defined
-// to use the AJAX asynchronous loading. This means that it will not block other
-// functions. However, this also means that the loading is not guaranteed to be
-// finished before other commands are given.
-//
-// NOTE: JSON DOES NOT ALLOW COMMENTS IN THE FILE!
-//
-//
-// The Data object holds the database.
-//
+/**
+ * File: data_model.js
+ * Group: Morning Breeze
+ *
+ * This is a template file for the use of data from JSON files. It is defined
+ * to use the AJAX asynchronous loading. This means that it will not block other
+ * functions. However, this also means that the loading is not guaranteed to be
+ * finished before other commands are given.
+ *
+ * NOTE: JSON DOES NOT ALLOW COMMENTS IN THE FILE!
+ *
+ *
+ * The Data object holds the database.
+ */
+
+/**
+ * Load the data from a JSON database.
+ * @param callback A callback function to receive the file's data-
+ * @param file The file containing the jSON database.
+ */
+
 function loadJSON(callback, file) {
 
     // We load the file using an XMLHttpRequest, which is part of AJAX
@@ -78,6 +89,7 @@ class Beverage {
     }
 }
 
+/** Represents the credentials of the different types of users. */
 const ACCESS_LEVELS = {
     MANAGER: "0",
     BARTENDER: "1",
@@ -86,12 +98,21 @@ const ACCESS_LEVELS = {
     REGULAR: "4"
 }
 
+/** Represents the customer cart. */
 var cart = [];
 
+/**
+ * Puts a beverage in the cart.
+ * @param cartItem The beverage to put in the cart.
+ */
 function pushStack(cartItem) {
     stack.push(cartItems);
 }
 
+/**
+ * Removes a beverage from the cart.
+ * @param cartItem The beverage to remove from the cart.
+ */
 function popStack(cartItem) {
     var lastStack = stack.pop()
 
@@ -163,8 +184,11 @@ class Data {
     }
 }
 
-
-
+/** Set up the data for the program. */
 const db = new Data();
 db.loadUsers();
 db.loadBeverages();
+
+/**
+ * END of file data_model.js
+ */
