@@ -70,7 +70,7 @@ function show_menu() {
                     </div>
                 </div>
                 <div class='beverage-image-wrapper'> 
-                    <img class="beverage-image" src='${beverage.imageUrl}_100.png'></img>
+                    <img class="beverage-image" src='${beverage.imageUrl}_100.png' draggable="true"></img>
                 </div>
             </div>`;
             
@@ -86,6 +86,7 @@ function show_menu() {
             classen addToCartButton.
         */
         $('.beverage-to-list').on('click', addToCart);  
+        $('.beverage-image').on('dragstart', drag);
 };
 
 function occupyTableOnClick() {
@@ -186,7 +187,6 @@ jQuery(function () {
     $('button#button-home').on('click', function() {
         window.location.href = "index.html";
     });
-
     $('.table-button').each(function(index) {
         const rand = Math.round(Math.random());
         if(rand) {
@@ -196,4 +196,6 @@ jQuery(function () {
             $(this).css("background-color", "#cb5e56"); 
         }
     });
+    $('#cart-items').on('drop', drop);
+    $('#cart-items').on('dragover', allowDrop);
 });
