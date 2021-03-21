@@ -4,3 +4,8 @@ package*
 utility
 .*
 .DS_STORE
+Lib
+Scripts
+api_key.json
+py*
+*.py
