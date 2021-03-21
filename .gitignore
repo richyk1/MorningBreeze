@@ -3,3 +3,8 @@ node_modules
 package*
 utility
 .*
+Lib/
+Scripts/
+api_key.json
+pyvenv.cfg
+*.py
