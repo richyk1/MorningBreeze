@@ -1,3 +1,55 @@
+
+
+/* Här börjar inklistrad kod*/
+
+var language = 'sv'
+
+function update_view() {
+    keys = dict['keys'];
+    for (idx in keys) {
+        key = keys[idx];
+        $("#" + key).text(get_string(key));
+    };
+    pics = dict['pics'];
+    for (idx in pics) {
+        pic = pics[idx];
+        $("#" + pic).attr('src', get_string(pic));
+    };
+}
+
+// Update the language we use
+function change_lang() {
+    if (language=='en') {
+        language = 'sv';
+    } else {language = 'en'};
+    update_view();
+    change_la();
+}
+
+// This function will return the appropriate string for each
+// key. The language handling is made "automatic".
+//
+function get_string(key) {
+    return dict[language][key];
+}
+
+
+
+// We don't update the view the first time until the document is ready
+// loading.
+//
+$(document).ready(function() {
+    update_view();
+})
+
+
+
+
+
+
+/* Här slutar inklistrad kod*/
+
+
 /**
  * 
  */
@@ -75,7 +127,7 @@ function menuOnClick(event) {
                         <span class='beverage-price'> 
                             ${beverage.price}:-
                         </span> 
-                        <button class='beverage-to-list' id="product-${beverage.productId}">
+                        <button class='beverage-to-list'>
                                 <img src='assets/images/add-circle-outline.svg'></img>
                         </button>
                     </div>
@@ -84,14 +136,8 @@ function menuOnClick(event) {
                     <img class="beverage-image" src='${beverage.imageUrl}_100.png'></img>
                 </div>
             </div>`;
-
+            
             $('div#all-beverages').append(beverageDOM);
-
-            const temp = {
-                execute: addToCart.bind(null, beverage),
-                unexecute: removeCartItem.bind(null, beverage)
-            }
-            document.getElementById("product-"+beverage.productId).addEventListener("click", doit.bind(null, temp));
         });
 
         $('div#all-beverages').css("display", "grid");
@@ -101,6 +147,7 @@ function menuOnClick(event) {
             Vi lägger till en addEventListener till alla knappar som använder sig av
             classen addToCartButton.
         */
+        $('.beverage-to-list').on('click', addToCart);  
 };
 
 function occupyTableOnClick() {
@@ -110,95 +157,64 @@ function occupyTableOnClick() {
     $('button#menu').css("display", "grid");
 }
 
-function removeCartItem(obj) {
-    var i = findObject(obj, cart);
-    cart[i].quantity -= 1;
-    
-    if(cart[i].quantity == 0) {
-        cart.splice(i , 1);
-    }
-    updateViewCart();
-}
+function removeCartItem(event) {
+    var buttonClicked = event.target
+    buttonClicked.parentElement.parentElement.remove() // Det behövs två system parentElement för att ta bort hela objektet
 
-function findObject (object , array) {
-    for (i in array) {
-        if (parseInt(object.productId) == parseInt(array[i].obj.productId)) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-function newQuantity(obj) {
-    var i = findObject(obj, cart);
-    cart[i].quantity 
+    if($('.cart-item').length == 0) $('span#total-price').css("display", "none");
     cartTotal();
 }
 
-function addToCart(beverageObject) {
-
-    var cartIndex = findObject(beverageObject, cart);
-    if (cartIndex == -1) {
-        var temp = {
-            obj: beverageObject,
-            quantity: 1
-        }
-        cart.push(temp);
-    } else {
-        cart[cartIndex].quantity += 1;
+function newQuantity(event) {
+    var input = event.target
+    if (input.value < 1) {
+        input.parentElement.parentElement.remove()
     }
-    
-    updateViewCart();
+    cartTotal();
 }
 
-function updateViewCart() {
+function addToCart() {
+    const productNameBold = $(this).parent().parent().children('div.beverage-header').children('h2').text()
+    const beverageObject = db.loadBeverageByName(productNameBold);
 
-    $("div#cart-items").text(""); 
+    /*
+        Vi ger HTML kod till varje objekt som finns med på vår cart.
+        På så vis skriver vi ut den rätta titeln, priset, håller koll på
+        kvantiteten samt att vi lägger till en remove-knapp.
+    */
+    var cartContent = `
+        <div class="cart-item">
+            <div class="cart-column">
+                <span class="cart-item-title">${beverageObject.productNameBold}</span>
+            </div>
+            <span class="cart-price cart-column">${beverageObject.price}</span>
+            <div class="cart-quantity cart-column">
+                <input class="quantity" type="number" value="1">
+                <button class="btn remove-item" type="button">REMOVE</button>
+            </div>
+        </div>`
 
-    for (i in cart) {
-        /*
-            Vi ger HTML kod till varje objekt som finns med på vår cart.
-            På så vis skriver vi ut den rätta titeln, priset, håller koll på
-            kvantiteten samt att vi lägger till en remove-knapp.
-        */
-        var cartContent = `
-            <div class="cart-item">
-                <div class="cart-column">
-                    <span class="cart-item-title">${cart[i].obj.productNameBold}</span>
-                </div>
-                <span class="cart-price cart-column">${cart[i].obj.price}</span>
-                <div class="cart-quantity cart-column">
-                    <input class="quantity" type="number" value="${cart[i].quantity}" readyonly>
-                    <button class="btn remove-item" type="button">REMOVE</button>
-                </div>
-            </div>`
-
-        $('span#total-price').css("display", "block");
-        // Lägger till cartItem bland de alla cartItems som vi har.
-
-
-        $('div#cart-items').append(cartContent);
+    $('span#total-price').css("display", "block");
+    // Lägger till cartItem bland de alla cartItems som vi har.
+    $('div#cart-items').append(cartContent);
 
 
-        /*  Lägger till funktionalitet till removeknappen som finns med i HTML-koden för
-            varje objekt i kassan. Samt funktionalitet så att man kan ändra på kvantiteten. */
-        const temp = {
-            execute: removeCartItem.bind(null, cart[i].obj),
-            unexecute: addToCart.bind(null, cart[i].obj)
-        }
+    /*  Lägger till funktionalitet till removeknappen som finns med i HTML-koden för
+        varje objekt i kassan. Samt funktionalitet så att man kan ändra på kvantiteten. */
+    $('.remove-item').last().on('click', removeCartItem)
+    $('.quantity').last().on('keypress click change', newQuantity)
 
-        $('.remove-item').last().on('click', doit.bind(null, temp));
-    }
 
     cartTotal();
 }
 
 function cartTotal() {
     var total = 0
-
-    for (i in cart) {
-        total = total + cart[i].obj.price * cart[i].quantity;
-    }
+    $('.cart-item').each(function(index, item) {
+        var price = parseFloat($(this).children('.cart-price').text())
+        var quantity = $(this).children('.cart-quantity').children('.quantity').val();
+        total = total + (price * quantity)
+    });
 
     // Detta skyddar oss från att få en massa onödiga decimaler
     total = Math.round(total * 100) / 100;
@@ -206,72 +222,8 @@ function cartTotal() {
     $('span#total-price').text(total + " kr");
 }
 
-
-
-// The data base for the UNDO-REDO mechanism is stored in two stacks
-// Both of these are empty to start with.
-//
-let undostack = [];
-let redostack = [];
-
-// The UNDO-manager consists of three functions. In this version they are
-// rudimentary, in that they don't check for an empty stack before trying.
-// Adding these checks is an easy task.
-//
-// The UNDO-manager requires that the functions are stored as objects with three
-// functions each: execute, unexecute and reexecute. Since the model is very
-// small here, the functins are also necessarily simple. With more complex
-// models, the functions for this will also grow.
-//
-// Note, however. that the undo-mechanism does not need to know anything
-// about the model or the functions themselves. It just executes the appropriate
-// function for the respective moments.
-//
-// ==========================================================================
-// the doit function executes the function and then stores the function object
-// on the UNDO-stack.
-//
-// Note that when a new function is executed, the REDO-stack has to be reset!
-//
-function doit(funcobj) {
-    funcobj.execute();
-    undostack.push(funcobj);
-    redostack = [];
-}
-
-
-// ==========================================================================
-// The undoit first pops the function object from the UNDO-stack, then executes
-// UNDO-function and stores the function object on the REDO-stack.
-//
-function undoit() {
-    if (undostack.length == 0) return;
-    funcobj = undostack.pop();
-    funcobj.unexecute();
-    redostack.push(funcobj);
-}
-
-// ==========================================================================
-// The redoit function pops the function object from the REDO-stack, executes
-// the EXECUTE-function and then pushes the function object onto the UNDO-stack.
-//
-function redoit() {
-    if (redostack.length == 0) return;
-    funcobj = redostack.pop();
-    funcobj.execute();
-    undostack.push(funcobj);
-}
-
-
-
-
-
-
 jQuery(function () {
     $('button#menu').on('click', { beverages: db.beverages }, menuOnClick);
-    $('button#undo').on('click', undoit);
-    $('button#redo').on('click', redoit);
-
     $('.table-button').each(function(index) {
         const rand = Math.round(Math.random());
         if(rand) {

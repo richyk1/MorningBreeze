@@ -427,6 +427,7 @@ Palanquin = for text
      justify-content: center;
  }
 
+ 
  .btn {
      background-color: black;
      color: white;
@@ -448,6 +449,11 @@ Palanquin = for text
      width: 100%;
      margin: 5px;
  }
+
+ .btn-nav2 {
+    width: 150px;
+    margin: 5px;
+}
 
  div#login-window {
      position: fixed;
@@ -552,17 +558,5 @@ Palanquin = for text
          grid-template-rows: 25% auto 10% minmax(5%, 7%);
          grid-template-columns: auto auto auto auto;
          grid-template-areas: "header header header header" "main main main main" "sidebar sidebar sidebar sidebar" "footer footer footer footer";
-     }
- }
-
- @media screen and (max-width: 1600px) {
-     #all-beverages {
-         grid-template-columns: 1fr 1fr;
-     }
- }
-
-@media screen and (max-width: 1180px) {
-     #all-beverages {
-         grid-template-columns: 1fr;
      }
  }

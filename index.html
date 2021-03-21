@@ -8,9 +8,10 @@
     <title>Morning Breeze</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/javascript/jquery-3.3.1.min.js"></script>
-    <script src="assets/javascript/model/data_model.js"></script>
     <script src="assets/javascript/controller/user_controller.js"></script>
     <script src="assets/javascript/controller/nav_controller.js"></script>
+    <script src="assets/javascript/model/data_model.js"></script>
+    <script src="assets/javascript/Dictionary.js"></script>
 </head>
 
 <body>
@@ -18,11 +19,11 @@
         <div id="tint" onclick="untint()"></div>
         <form autocomplete="off" onsubmit="return login_handler()">
             <div id="login-field">
-                <label for="username">Username</label>
+                <label for="username"><div id="username-label"></div></label> <!-- Username -->
                 <input type="text" id="username" name="username" placeholder="Enter Username" required autofocus>
             </div>
             <div id="password-field">
-                <label for="password">Password</label>
+                <label for="password"><div id="password-label"></div></label> <!-- Password -->
                 <input type="text" id="password" name="password" placeholder="Enter Password" required>
             </div>
             <div id="submit">
@@ -37,14 +38,20 @@
         </div>
         <nav>
             <div class="menu-button-wrapper">
-                <button class="btn btn-nav" onclick="sendHome()">Home</button>
+                <button class="btn btn-nav" onclick="sendHome()"><div id="home"></div></button> <!-- Home button -->
             </div>
-            <h1>Choose your table: </h1>
+            <h1><div id="table"></div></h1>       <!-- Choose table -->
+
+            <div class="menu-button-wrapper">
+                <button class="btn btn-nav2" onclick="change_lang()"><div id="change-lang"></div></button> <!-- Language button -->
+            </div>
         </nav>
+
         <div class="dropdown">
-            <button class="dropbtn btn" onclick="show_login()">Login</button>
+            <button class="dropbtn btn" onclick="show_login()"><div id="login"></div></button> <!-- Log in button -->
         </div>
 
+        
     </header>
     <main>
         <div id="table-window">
@@ -123,7 +130,7 @@
         </div>
         <div id="all-beverages"></div>
         <button id="menu">
-            <h2>MENU</h2>
+            <h2><div id="menu-text"></div></h2>
         </button>
     </main>
     <aside>
@@ -132,12 +139,6 @@
         <button type="submit" class="btn">Order</button>
     </aside>
     <footer>
-        <button id="undo">
-            <p>UNDO</p>
-        </button>
-        <button id="redo">
-            <p>REDO</p>
-        </button>
         <p>
             The Morning Breeze Group
         </p>
