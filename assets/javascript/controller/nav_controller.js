@@ -1,7 +1,5 @@
 
 
-/* Här börjar inklistrad kod*/
-
 var language = 'sv'
 
 function update_view() {
@@ -45,14 +43,6 @@ function get_string(key) {
 $(document).ready(function() {
     update_view();
 })
-
-
-
-
-
-
-/* Här slutar inklistrad kod*/
-
 
 /**
  * 
