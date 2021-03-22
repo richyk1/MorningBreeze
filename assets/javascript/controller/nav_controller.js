@@ -1,48 +1,62 @@
-function untint() {
-    $("div#login-window").animate({
-        opacity: 0,
-    }, 200, function () {
-        // Animation complete. Show login window
-
-        $('div#login-window').css("display", "none");
-    });
-
-    $("div#tint").animate({
-        opacity: 0,
-    }, 200, function () {
-        // Animation complete. Show login window
-
-    });
+function occupyTableOnClick() {
+    const tableNumber = Number($(this).text().trim());
+    db.currentUser.occupiedTable = tableNumber;
+    present.occupyTable();
 }
 
-/**
- * Shows the login box
- */
-function show_login() {
-    $('div#login-window').css("display", "flex");
-    $("div#login-window").animate({
-        opacity: 1,
-    }, 200, function () {
-        // Animation complete. Show login window
-        document.getElementById('username').focus();
-    });
+function removeCartItem(event) {
+    var buttonClicked = event.target
+    buttonClicked.parentElement.parentElement.remove() // Det behövs två system parentElement för att ta bort hela objektet
 
-    $("div#tint").animate({
-        opacity: 0.5,
-    }, 200, function () {
-
-    });
+    if ($('.cart-item').length == 0) present.hideTotalPrice();
+    cartTotal();
 }
 
-function show_menu() {
-        /**
-         * @const
-         * @type {Beverage[]} 
-         */
-        const beverages = db.getBeverages();
+function newQuantity(event) {
+    var input = event.target
+    if (input.value < 1) {
+        input.parentElement.parentElement.remove()
+    }
+    cartTotal();
+}
 
-        beverages.forEach(function (beverage) {
-            const beverageDOM = `
+function addToCart() {
+    const productNameBold = $(this).parent().parent().children('div.beverage-header').children('h2').text()
+    const selectedBeverage = db.loadBeverageByName(productNameBold);
+
+    present.addItem(selectedBeverage);
+
+    /*  Lägger till funktionalitet till removeknappen som finns med i HTML-koden för
+        varje objekt i kassan. Samt funktionalitet så att man kan ändra på kvantiteten. */
+    $('.remove-item').last().on('click', removeCartItem)
+    $('.quantity').last().on('keypress click change', newQuantity)
+
+    cartTotal();
+}
+
+function cartTotal() {
+    var total = 0
+    $('.cart-item').each(function () {
+        const price = parseFloat($(this).children('.cart-price').text())
+        const quantity = $(this).children('.cart-quantity').children('.quantity').val();
+        total = total + (price * quantity)
+    });
+
+    // Detta skyddar oss från att få en massa onödiga decimaler
+    total = Math.round(total * 100) / 100;
+
+    present.updateTotalPrice();
+}
+
+function menu() {
+    /**
+     * @const
+     * @type {Beverage[]} 
+     */
+    const beverages = db.beverages;
+
+    beverages.forEach(function (beverage) {
+        const beverageDOM = `
             <div class="beverage">
                 <div class='beverage-info'>
                     <div class='beverage-header'>
@@ -73,107 +87,30 @@ function show_menu() {
                     <img class="beverage-image" src='${beverage.imageUrl}_100.png' draggable="true"></img>
                 </div>
             </div>`;
-            
-            $('div#all-beverages').append(beverageDOM);
-        });
 
-        $('div#all-beverages').css("display", "grid");
-        $('button.login-vip').css("display", "none");
-        $('button#login-guest').css("display", "none");
-
-        /*
-            Vi lägger till en addEventListener till alla knappar som använder sig av
-            classen addToCartButton.
-        */
-        $('.beverage-to-list').on('click', addToCart);  
-        $('.beverage-image').on('dragstart', drag);
-};
-
-function occupyTableOnClick() {
-    const tableNumber = Number($(this).text().trim());
-    db.setCacheTable(tableNumber);
-    $('div#table-window').css("display", "none");
-    $('div.dropdown').css("display", "none");
-    $('button.login-vip').css("display", "grid");
-    $('button.btn.login-vip').css("display", "block");
-    $('button#login-guest').css("display", "grid");
-    $('nav h1').text('Your table: ' + tableNumber);
-}
-
-function removeCartItem(event) {
-    var buttonClicked = event.target
-    buttonClicked.parentElement.parentElement.remove() // Det behövs två system parentElement för att ta bort hela objektet
-
-    if($('.cart-item').length == 0) $('span#total-price').css("display", "none");
-    cartTotal();
-}
-
-function newQuantity(event) {
-    var input = event.target
-    if (input.value < 1) {
-        input.parentElement.parentElement.remove()
-    }
-    cartTotal();
-}
-
-function addToCart() {
-    const productNameBold = $(this).parent().parent().children('div.beverage-header').children('h2').text()
-    const beverageObject = db.loadBeverageByName(productNameBold);
-
-    /*
-        Vi ger HTML kod till varje objekt som finns med på vår cart.
-        På så vis skriver vi ut den rätta titeln, priset, håller koll på
-        kvantiteten samt att vi lägger till en remove-knapp.
-    */
-    var cartContent = `
-        <div class="cart-item">
-            <div class="cart-column">
-                <span class="cart-item-title">${beverageObject.productNameBold}</span>
-            </div>
-            <span class="cart-price cart-column">${beverageObject.price}</span>
-            <div class="cart-quantity cart-column">
-                <input class="quantity" type="number" value="1">
-                <button class="btn remove-item" type="button">REMOVE</button>
-            </div>
-        </div>`
-
-    $('span#total-price').css("display", "block");
-    // Lägger till cartItem bland de alla cartItems som vi har.
-    $('div#cart-items').append(cartContent);
-
-
-    /*  Lägger till funktionalitet till removeknappen som finns med i HTML-koden för
-        varje objekt i kassan. Samt funktionalitet så att man kan ändra på kvantiteten. */
-    $('.remove-item').last().on('click', removeCartItem)
-    $('.quantity').last().on('keypress click change', newQuantity)
-
-
-    cartTotal();
-}
-
-function cartTotal() {
-    var total = 0
-    $('.cart-item').each(function(index, item) {
-        var price = parseFloat($(this).children('.cart-price').text())
-        var quantity = $(this).children('.cart-quantity').children('.quantity').val();
-        total = total + (price * quantity)
+        present.appendBeverage.call(beverageDOM);
     });
 
-    // Detta skyddar oss från att få en massa onödiga decimaler
-    total = Math.round(total * 100) / 100;
-    
-    $('span#total-price').text(total + " kr");
+    present.showMenu();
+
+    /*
+        Vi lägger till en addEventListener till alla knappar som använder sig av
+        classen addToCartButton.
+    */
+    $('.beverage-to-list').on('click', addToCart);
+    $('.beverage-image').on('dragstart', drag);
 }
 
 function buttonOnClick(event) {
-    switch(event.data.button) {
+    switch (event.data.button) {
         case "menu":
-            show_menu();
+            menu();
+            break;
         case "login-vip":
-            show_login();
+            present.showLogin();
             break;
         case "login-guest":
-            show_menu();
+            menu();
             break;
         default:
             break;
@@ -181,21 +118,26 @@ function buttonOnClick(event) {
 }
 
 jQuery(function () {
-    $('button#menu').on('click', { button: "menu" }, buttonOnClick);
-    $('button.login-vip').on('click', { button: "login-vip" }, buttonOnClick);
-    $('button#login-guest').on('click', { button: "login-guest" }, buttonOnClick);
-    $('button#button-home').on('click', function() {
-        window.location.href = "index.html";
-    });
-    $('.table-button').each(function(index) {
-        const rand = Math.round(Math.random());
-        if(rand) {
-            $(this).css("background-color", "#68a26a").parent().addClass("table-available");
-            $(this).parent().on('click', occupyTableOnClick);
-        } else {
-            $(this).css("background-color", "#cb5e56"); 
-        }
-    });
+    $('button#menu').on('click', {
+        button: "menu"
+    }, buttonOnClick);
+    $('button.login-vip').on('click', {
+        button: "login-vip"
+    }, buttonOnClick);
+    $('button#login-guest').on('click', {
+        button: "login-guest"
+    }, buttonOnClick);
+    $('div#tint').on('click', present.untint);
+    $('button#button-home').on('click', present.home);
     $('#cart-items').on('drop', drop);
     $('#cart-items').on('dragover', allowDrop);
+    $('.table-button').each(function () {
+        const rand = Math.round(Math.random());
+        if (rand) {
+            present.toggleColor.call(this, rand);
+            $(this).parent().on('click', occupyTableOnClick);
+        } else {
+            present.toggleColor.call(this, rand);
+        }
+    });
 });

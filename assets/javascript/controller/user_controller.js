@@ -23,43 +23,15 @@ async function login_handler(event) {
     const enteredPassword = await digestMessage($('#password').val());
 
     if (userInfo == undefined) {
-        show_incorrect();
+        present.showIncorrect();
     } else if (userInfo.password != enteredPassword) {
-        show_incorrect();
+        present.showIncorrect();
     } else if (userInfo.password == enteredPassword) {
-        show_correct(userInfo);
+        db.currentUser = userInfo;
+        present.showCorrect();
     }
 }
 
-function show_incorrect() {
-    $('#error_msg').css("display", "block");
-}
-
-function show_vip_customer() {
-    $('main').children().each(function (index) {
-        $(this).css("display", "none");
-    })
-
-    db.getCurrentUser().UpdateBalance();
-    $('#vip-customer').css("display", "grid");
-}
-
-/**
- * 
- * @param {User} user User object containing information about the current user.
- */
-function show_correct(user) {
-    db.setCurrentUser(user);
-    switch (user.credentials) {
-        case ACCESS_LEVELS.VIP:
-            $('#login-window').css("display", "none");
-            show_vip_customer();
-            break;
-        default:
-            window.location.href = "index.html"
-            break;
-    }
-}
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -113,13 +85,15 @@ function drop(event) {
 jQuery(function () {
     $('form').on('submit', login_handler);
     $('.btn.toggle').on('click', function () {
-        db.getCurrentUser().PayFromAccount();
+        db.currentUser.payFromAccount = !db.currentUser.payFromAccount;
+        present.payFromAccount.call(db.currentUser);
     });
     $('button.logout').on('click', function () {
-        db.getCurrentUser().Logout();
+        present.logout.call(db.currentUser);
+    });
+    $('button#fetch-special-beer').on('click', function() {
+        present.showCombinationLock();
     });
 
-
     $.event.addProp('dataTransfer');
-
 });

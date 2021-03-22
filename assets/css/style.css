@@ -49,7 +49,6 @@ Palanquin = for text
  }
 
  img {
-     object-fit: none;
      width: 100%;
      max-height: 100%;
  }
@@ -66,12 +65,16 @@ Palanquin = for text
      grid-template-columns: auto auto auto 15%;
  }
 
- header>div#logo {
+ div#logo {
      background-color: #181A1B;
      grid-column: 1 / 5;
  }
 
- header>nav {
+ div#logo img {
+     object-fit: none;
+ }
+
+ header nav {
      grid-row: 2;
      grid-column-start: 1;
      grid-column-end: 4;
@@ -96,7 +99,7 @@ Palanquin = for text
      text-align: center;
  }
 
- .navitem>a {
+ .navitem a {
      text-decoration: none;
      color: white;
      display: block;
@@ -105,18 +108,18 @@ Palanquin = for text
      transition: 0.2s;
  }
 
- header>nav>li>a:hover {
+ header nav li a:hover {
      text-decoration: none;
      color: white;
      display: block;
      background-color: #CB5E56;
  }
 
- header>nav>li#signin {
+ header nav li#signin {
      grid-column: 5;
  }
 
- header>nav>h1 {
+ header nav h1 {
      grid-column: 3;
      margin: auto;
      font-family: Palanquin;
@@ -204,7 +207,7 @@ Palanquin = for text
      grid-template-areas: "header header header header""main main main sidebar""footer footer footer footer";
  }
 
- div#submit>input {
+ div#submit input {
      background-color: black;
      color: white;
      border: none;
@@ -214,11 +217,11 @@ Palanquin = for text
      height: 100%;
  }
 
- div#submit>input:hover {
+ div#submit input:hover {
      background-color: #CB5E56;
  }
 
- div#submit>input:focus {
+ div#submit input:focus {
      outline: none;
  }
 
@@ -408,7 +411,7 @@ Palanquin = for text
      margin: 5px;
  }
 
- div#login-window {
+ div#focus-window {
      position: fixed;
      z-index: 5;
      top: 0;
@@ -419,9 +422,10 @@ Palanquin = for text
      justify-content: center;
  }
 
- div#login-window form {
+ div#focus-window form {
      margin: auto;
-     display: flex;
+     display: none;
+     /* display: flex; */
      flex-direction: column;
      height: 35%;
      width: 25%;
@@ -434,19 +438,19 @@ Palanquin = for text
      z-index: 10;
  }
 
- div#login-window form>* {
+ div#focus-window form>* {
      display: flex;
      flex-direction: column;
  }
 
- div#login-window form input[type=text],
+ div#focus-window form input[type=text],
  input[type=password] {
      padding: 12px 20px;
      border: 1px solid #ccc;
      box-sizing: border-box;
  }
 
- div#login-window form>div#submit {
+ div#focus-window form>div#submit {
      width: 100%;
      margin-top: auto;
      height: 20%
@@ -509,13 +513,13 @@ Palanquin = for text
  }
 
  #vip-customer {
-    display: none;
-    width: 50%;
-    align-self: auto;
-    gap: 1em;
-    justify-self: center;
-    grid-template-rows: 1fr 5fr;
-    border: 1px dotted #C6A85F;
+     display: none;
+     width: 50%;
+     align-self: auto;
+     gap: 1em;
+     justify-self: center;
+     grid-template-rows: 1fr 5fr;
+     border: 1px dotted #C6A85F;
  }
 
  #vip-settings {
@@ -547,6 +551,151 @@ Palanquin = for text
  .toggle:hover {
      cursor: pointer;
  }
+
+ #combo-lock {
+     margin: auto;
+     display: none;
+     flex-direction: column;
+     gap: 5px;
+     font-family: Palanquin;
+     border: 3px dotted black;
+     padding: 3em;
+     background: #a9a9a994;
+     z-index: 10;
+ }
+
+ #indicator {
+     border: 2px solid #070707;
+     border-radius: 50%;
+     height: 32px;
+     margin: 0 auto 24px;
+     overflow: hidden;
+     position: relative;
+     width: 32px;
+ }
+
+ #indicator.locked img.unlocked {
+     transform: translate(-50%, 50%);
+ }
+
+ #indicator.unlocked img.locked {
+     transform: translate(-50%, -100%);
+ }
+
+ #indicator.unlocked img.unlocked {
+     transform: translate(-50%, -50%);
+ }
+
+ #indicator img {
+     padding: 16px;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     transition: transform 0.25s ease;
+     width: 16px;
+ }
+
+ #indicator img.locked {
+     background: #f56666;
+ }
+
+ #indicator img.unlocked {
+     background: #50ef87;
+ }
+
+ #combination {
+     border: 2px solid #070707;
+     border-radius: 4px;
+     display: flex;
+     padding: 0 4px;
+ }
+
+ .wheel {
+     font-size: 24px;
+     padding: 0 4px;
+     text-align: center;
+ }
+
+ .increment,
+ .decrement {
+     background: #1d242f;
+     border: 2px solid #070707;
+     border-radius: 50%;
+     cursor: pointer;
+     height: 24px;
+     position: relative;
+     transition: border-color 0.1s ease;
+     width: 24px;
+ }
+
+ .increment:active,
+ .decrement:active {
+     border-color: #fff;
+ }
+
+ .increment.click,
+ .decrement.click {
+     border-color: #fff;
+     transition: border-color 0s ease;
+ }
+
+ .increment img,
+ .decrement img {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 24px;
+ }
+
+ .increment {
+     margin-top: -14px;
+ }
+
+ .decrement {
+     margin-bottom: -14px;
+ }
+
+ .digit {
+     -moz-appearance: textfield;
+     background: #1d242f;
+     border: 2px solid #070707;
+     border-radius: 24px;
+     caret-color: #1d242f;
+     color: #fff;
+     cursor: pointer;
+     margin: 8px 0;
+     outline: none;
+     padding: 8px 0;
+     text-align: center;
+     -webkit-user-select: none;
+     -moz-user-select: none;
+     -ms-user-select: none;
+     user-select: none;
+     transition: border-color 0.1s ease;
+     width: 24px;
+ }
+
+ .digit:focus {
+     border-color: #fff;
+ }
+
+ .digit::-webkit-inner-spin-button,
+ .digit::-webkit-outer-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
+ }
+
+ .digit::-moz-selection {
+     background: transparent;
+ }
+
+ .digit::selection {
+     background: transparent;
+ }
+
+
 
  @media screen and (max-width: 768px) {
      body {

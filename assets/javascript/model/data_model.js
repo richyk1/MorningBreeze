@@ -56,21 +56,7 @@ class User {
         this.phone = phone;
         this.account_balance = account_balance;
         this.payFromAccount = payFromAccount;
-
-        this.PayFromAccount = function() {
-            this.payFromAccount = !this.payFromAccount;
-            if(this.payFromAccount) $('.btn.toggle').css("background-color", "#CB5E56");
-            else $('.btn.toggle').css("background-color", "#56cb5a");
-        }
-
-        this.UpdateBalance = function() {
-            $('#account-balance').text("Account balance: " + this.account_balance);
-        }
-
-        this.Logout = function() {
-            this.currentUser = null;
-            window.location.href = "index.html";
-        }
+        this.occupiedTable = undefined;
     }
 }
 
@@ -84,8 +70,8 @@ class Beverage {
      */
     constructor(productNameBold, productNameThin, imageUrl, taste, usage, country, price) {
         this.imageUrl = imageUrl;
-        this.productNameBold = productNameBold; 
-        if(productNameThin) this.productNameThin = productNameThin;
+        this.productNameBold = productNameBold;
+        if (productNameThin) this.productNameThin = productNameThin;
         else this.productNameThin = "";
         this.taste = taste;
         this.usage = usage;
@@ -110,7 +96,11 @@ class Data {
         this.payments = [];
         this.bought = [];
         this.sold = [];
-        this.currentUser;
+
+        /**
+         * @type {User} A User object.
+         */
+        this.currentUser = new User(4, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
 
         this.loadUsers = function () {
             loadJSON((response) => {
@@ -152,30 +142,12 @@ class Data {
             return undefined;
         };
 
-        this.setCacheTable = function (tableNumber) {
-            this.cachedTable = tableNumber;
-        }
-
-        this.getCacheTable = function () {
-            return this.cachedTable;
-        }
-
-        this.getCurrentUser = function () {
-            return this.currentUser;
-        }
-
-        this.setCurrentUser = function (user) {
-            this.currentUser = user;
-        }
-
-        this.getBeverages = function() { return this.beverages };
-
         /**
          * Retrieves beverage by name.
          * @param {string} productNameBold
          * @returns {Beverage}
          */
-        this.loadBeverageByName = function(productNameBold) {
+        this.loadBeverageByName = function (productNameBold) {
             return this.beverages.find(beverage => beverage.productNameBold == productNameBold);
         }
     }
@@ -184,3 +156,163 @@ class Data {
 const db = new Data();
 db.loadUsers();
 db.loadBeverages();
+
+
+class Presenter {
+    constructor() {
+        this.showCombinationLock = function () {
+            $('div#combo-lock').css('display', 'flex');
+            $('div#focus-window').css("display", "flex");
+            $("div#focus-window").animate({
+                opacity: 1,
+            }, 200, function () {
+                // Animation complete. Show combinationlock window
+            });
+
+            $("div#tint").animate({
+                opacity: 0.5,
+            }, 200, function () {
+
+            });
+        }
+
+        this.showLogin = function () {
+            $('div#focus-window form').css("display", "flex");
+            $('div#focus-window').css("display", "flex");
+            $("div#focus-window").animate({
+                opacity: 1,
+            }, 200, function () {
+                // Animation complete. Show login window
+                document.getElementById('username').focus();
+            });
+
+            $("div#tint").animate({
+                opacity: 0.5,
+            }, 200, function () {
+
+            });
+        }
+
+        this.untint = function () {
+            $("div#focus-window").animate({
+                opacity: 0,
+            }, 200, function () {
+                $('div#focus-window').css("display", "none");
+                $('div#combo-lock').css('display', 'none');
+                $('div#focus-window form').css("display", "none");
+            });
+
+            $("div#tint").animate({
+                opacity: 0,
+            }, 200, function () {
+                // Animation complete. Show login window
+            });
+        }
+
+        this.appendBeverage = function () {
+            $('div#all-beverages').append(this);
+        }
+
+        this.showMenu = function () {
+            $('div#all-beverages').css("display", "grid");
+            $('button.login-vip').css("display", "none");
+            $('button#login-guest').css("display", "none");
+        };
+
+        this.occupyTable = function () {
+            $('div#table-window').css("display", "none");
+            $('div.dropdown').css("display", "none");
+            $('button.login-vip').css("display", "grid");
+            $('button.btn.login-vip').css("display", "block");
+            $('button#login-guest').css("display", "grid");
+            $('nav h1').text('Your table: ' + db.currentUser.occupiedTable);
+        }
+
+        this.home = function () {
+            window.location.href = 'index.html'
+        }
+
+        this.totalPrice = function () {
+            $('span#total-price').text(total + " kr");
+        }
+
+        this.addItem = function (selectedBeverage) {
+            /*
+                Vi ger HTML kod till varje objekt som finns med på vår cart.
+                På så vis skriver vi ut den rätta titeln, priset, håller koll på
+                kvantiteten samt att vi lägger till en remove-knapp.
+            */
+            var cartContent = `
+            <div class="cart-item">
+                <div class="cart-column">
+                    <span class="cart-item-title">${selectedBeverage.productNameBold}</span>
+                </div>
+                <span class="cart-price cart-column">${selectedBeverage.price}</span>
+                <div class="cart-quantity cart-column">
+                    <input class="quantity" type="number" value="1">
+                    <button class="btn remove-item" type="button">REMOVE</button>
+                </div>
+            </div>`
+
+            $('span#total-price').css("display", "block");
+            // Lägger till cartItem bland de alla cartItems som vi har.
+
+            $('div#cart-items').append(cartContent);
+        }
+
+        this.hideTotalPrice = function () {
+            $('span#total-price').css("display", "none");
+        }
+
+        this.toggleColor = function (rand) {
+            if (rand) {
+                $(this).css("background-color", "#68a26a").parent().addClass("table-available");
+            } else {
+                $(this).css("background-color", "#cb5e56");
+            }
+        }
+
+        this.showIncorrect = function () {
+            $('#error_msg').css("display", "block");
+        }
+
+        this.showCorrect = function () {
+            switch (db.currentUser.credentials) {
+                case ACCESS_LEVELS.VIP:
+                    $('#focus-window').css("display", "none");
+                    $('div#combo-lock').css('display', 'none');
+                    $('div#focus-window form').css("display", "none");
+                    this.showVipCustomer();
+                    break;
+                default:
+                    window.location.href = "index.html"
+                    break;
+            }
+        }
+
+        this.showVipCustomer = function () {
+            $('main').children().each(function (index) {
+                $(this).css("display", "none");
+            })
+
+            $('#account-balance').text("Account balance: " + db.currentUser.account_balance);
+            $('#vip-customer').css("display", "grid");
+        }
+
+        this.payFromAccount = function () {
+            if (this.payFromAccount) $('.btn.toggle').css("background-color", "#CB5E56");
+            else $('.btn.toggle').css("background-color", "#56cb5a");
+        }
+
+        this.updateBalance = function () {
+            $('#account-balance').text("Account balance: " + db.currentUser.account_balance);
+        }
+
+        this.logout = function () {
+            this.currentUser = null;
+            window.location.href = "index.html";
+        }
+    }
+}
+
+const present = new Presenter();

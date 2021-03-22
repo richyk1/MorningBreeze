@@ -11,11 +11,12 @@
     <script src="assets/javascript/model/data_model.js"></script>
     <script src="assets/javascript/controller/user_controller.js"></script>
     <script src="assets/javascript/controller/nav_controller.js"></script>
+    <script src="assets/javascript/controller/combinationlock_controller.js"></script>
 </head>
 
 <body>
-    <div id="login-window">
-        <div id="tint" onclick="untint()"></div>
+    <div id="focus-window">
+        <div id="tint"></div>
         <form autocomplete="off">
             <div id="login-field">
                 <label for="username">Username</label>
@@ -30,7 +31,52 @@
             </div>
             <p id="error_msg" style="display: none; color: red;">User credenetials were incorrect!</p>
         </form>
+        <div id="combo-lock">
+            <div id="indicator" class="locked">
+                <img src="assets/images/lock.svg" class="locked" id="Lock">
+                <img src="assets/images/lock.svg" class="unlocked" id="Lock_open">
+            </div>
+            <div id="combination">
+                <div class="wheel">
+                    <div class="increment" index="0">
+                        <img src="assets/images/arrow_up.svg" id="Chevron_small_up">
+                    </div>
+                    <input class="digit" index="0" type="number" value="0" min="0" max="9">
+                    <div class="decrement" index="0">
+                        <img src="assets/images/arrow_down.svg" id="Chevron_small_down">
+                    </div>
+                </div>
+                <div class="wheel">
+                    <div class="increment" index="1">
+                        <img src="assets/images/arrow_up.svg" id="Chevron_small_up">
+                    </div>
+                    <input class="digit" index="1" type="number" value="0" min="0" max="9">
+                    <div class="decrement" index="1">
+                        <img src="assets/images/arrow_down.svg" id="Chevron_small_down">
+                    </div>
+                </div>
+                <div class="wheel">
+                    <div class="increment" index="2">
+                        <img src="assets/images/arrow_up.svg" id="Chevron_small_up">
+                    </div>
+                    <input class="digit" index="2" type="number" value="0" min="0" max="9">
+                    <div class="decrement" index="2">
+                        <img src="assets/images/arrow_down.svg" id="Chevron_small_down">
+                    </div>
+                </div>
+                <div class="wheel">
+                    <div class="increment" index="3">
+                        <img src="assets/images/arrow_up.svg" id="Chevron_small_up">
+                    </div>
+                    <input class="digit" index="3" type="number" value="0" min="0" max="9">
+                    <div class="decrement" index="3">
+                        <img src="assets/images/arrow_down.svg" id="Chevron_small_down">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <header>
         <div id="logo">
             <img src="assets/images/logo.svg" alt="Logo image for our website.">
@@ -124,13 +170,20 @@
             <div id="vip-settings">
                 <button class="btn toggle">Order and Pay from account?</button>
                 <span id="account-balance">Account Balance: </span>
+                <button class="btn" id="fetch-special-beer">Fetch special beer</button>
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="Add tokens to account" name="name" id='name' required />
+                    <label for="name" class="form__label">Name</label>
+                </div>
             </div>
         </div>
         <div id="all-beverages"></div>
         <button class="button-main login-vip">
-            <h2>Login as VIP</h2></button>
+            <h2>Login as VIP</h2>
+        </button>
         <button id="login-guest" class="button-main">
-            <h2>Continue as Guest</h2></button>
+            <h2>Continue as Guest</h2>
+        </button>
         <button id="menu" class="button-main">
             <h2>MENU</h2>
         </button>
