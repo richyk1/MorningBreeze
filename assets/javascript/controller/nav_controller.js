@@ -1,10 +1,19 @@
 /**
- * 
+ * File: nav_controller.js
+ * Group: Morning Breeze
+ * The file contains the main controller functions of the program.
+ */
+
+/**
+ * Go to the start page. The function sets the href (URL) of the current page to the location of the start page.. 
  */
 function sendHome() {
     window.location.href = "index.html";
 }
 
+/**
+ * Make html login window untinted. Then remove login window from document and show untinted login form.
+ */
 function untint() {
     $("div#login-window").animate({
         opacity: 0,
@@ -24,6 +33,7 @@ function untint() {
 
 /**
  * Shows the login box
+ * @param privilageLevel The credentials of the current user.
  */
 function show_login(privilageLevel) {
     $('div#login-window').css("display", "flex");
@@ -44,7 +54,10 @@ function show_login(privilageLevel) {
 }
 
 // Controller-view relationship
-
+/**
+ * Create and display the menu so that the user can add beverages to cart, with possibility of undo-redo. 
+ * @param event The event
+ */
 function menuOnClick(event) {
         /**
          * @const
@@ -103,6 +116,9 @@ function menuOnClick(event) {
         */
 };
 
+/**
+ * Mark the current table as occupied, then remove the table window from the document and display the menu instead.
+ */
 function occupyTableOnClick() {
     const tableNumber = Number($(this).text().trim());
     db.setCacheTable(tableNumber);
@@ -110,6 +126,10 @@ function occupyTableOnClick() {
     $('button#menu').css("display", "grid");
 }
 
+/**
+ * Remove a beverage from the cart. Then display the cart without the removed beverage.
+ * @param obj The beverage to be removed
+ */
 function removeCartItem(obj) {
     var i = findObject(obj, cart);
     cart[i].quantity -= 1;
@@ -120,6 +140,12 @@ function removeCartItem(obj) {
     updateViewCart();
 }
 
+/**
+ * Find a beverage in the cart.
+ * @param obj The beverage to search for
+ * @param array The cart
+ * @returns The index of obj in array if obj was found, else -1. 
+ */
 function findObject (object , array) {
     for (i in array) {
         if (parseInt(object.productId) == parseInt(array[i].obj.productId)) {
@@ -129,12 +155,20 @@ function findObject (object , array) {
     return -1;
 }
 
+/**
+ * Update the quantity in cart of an added beverage.
+ * @param obj The beverage that has been added to cart
+ */
 function newQuantity(obj) {
     var i = findObject(obj, cart);
     cart[i].quantity 
     cartTotal();
 }
 
+/**
+ * Add a beverage to the cart. Then update the view of the cart.
+ * @param beverageObject The beverage to add to cart. 
+ */
 function addToCart(beverageObject) {
 
     var cartIndex = findObject(beverageObject, cart);
@@ -151,6 +185,9 @@ function addToCart(beverageObject) {
     updateViewCart();
 }
 
+/**
+ * Update the view of the cart when a beverage is added or removed.
+ */
 function updateViewCart() {
 
     $("div#cart-items").text(""); 
@@ -193,6 +230,9 @@ function updateViewCart() {
     cartTotal();
 }
 
+/**
+ * Calculate the total price of the beverages in the cart. Then display the result in the view.
+ */
 function cartTotal() {
     var total = 0
 
@@ -262,11 +302,9 @@ function redoit() {
     undostack.push(funcobj);
 }
 
-
-
-
-
-
+/**
+ * Anonymous control function for the main buttons of the program.
+ */
 jQuery(function () {
     $('button#menu').on('click', { beverages: db.beverages }, menuOnClick);
     $('button#undo').on('click', undoit);
@@ -282,3 +320,7 @@ jQuery(function () {
         }
     });
 });
+
+/**
+ * END of file nav_controller.js
+ */

@@ -1,4 +1,11 @@
- /*
+/**
+ * File: style.css
+ * Group: Morning Breeze
+ * The file is the style sheet for the program.
+ */
+
+
+/*
 Color palette:: 
 Red = #CB5E56
 Brown = #C6A85F
@@ -566,3 +573,7 @@ Palanquin = for text
          grid-template-columns: 1fr;
      }
  }
+
+/**
+ * END of file style.css
+ */
