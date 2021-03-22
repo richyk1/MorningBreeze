@@ -1,11 +1,21 @@
 {
     "users": [
         {
-            "user_id": "2",
-            "credentials": "3",
-            "password": "0bc28e0a2a351e7f02f102ad42e0ef6bf8d2b268dfcd3eb34a5fd7a06df2a8a9",
-            "username": "abc",
-            "first_name": "Richard",
+            "user_id": "93",
+            "credentials": "0",
+            "password": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+            "username": "0",
+            "first_name": "Manager",
+            "last_name": "Breeze",
+            "email": "rich.richer@it.uu.se",
+            "phone": "0704811411"
+        },
+        {
+            "user_id": "93",
+            "credentials": "1",
+            "password": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+            "username": "1",
+            "first_name": "Bartender",
             "last_name": "Breeze",
             "email": "rich.richer@it.uu.se",
             "phone": "0704811411"
