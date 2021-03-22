@@ -41,6 +41,7 @@ function checkLock() {
 	if (combinationLock.locked === false) {
 		document.querySelector('#indicator').classList.remove('locked');
 		document.querySelector('#indicator').classList.add('unlocked');
+		
 	} else {
 		document.querySelector('#indicator').classList.add('locked');
 		document.querySelector('#indicator').classList.remove('unlocked');

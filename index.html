@@ -88,7 +88,6 @@
             <h1>Choose your table: </h1>
         </nav>
         <button class="btn login-vip">Login</button>
-
     </header>
     <main>
         <div id="table-window">
@@ -171,10 +170,15 @@
                 <button class="btn toggle">Order and Pay from account?</button>
                 <span id="account-balance">Account Balance: </span>
                 <button class="btn" id="fetch-special-beer">Fetch special beer</button>
-                <div class="form__group field">
-                    <input type="input" class="form__field" placeholder="Add tokens to account" name="name" id='name' required />
-                    <label for="name" class="form__label">Name</label>
+                <div class="login-box">
+                    <form>
+                        <div class="user-box">
+                            <input type="text" name="" required="">
+                            <label>Add tokens to account</label>
+                        </div>
+                    </form>
                 </div>
+
             </div>
         </div>
         <div id="all-beverages"></div>
