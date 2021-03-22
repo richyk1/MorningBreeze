@@ -23,7 +23,11 @@ function change_lang() {
         language = 'sv';
     } else {language = 'en'};
     update_view();
-    change_la();
+    update_taste();
+}
+
+function update_taste() {
+    $("#bevv").find('.sv').css( "color", "red" );
 }
 
 // This function will return the appropriate string for each
@@ -106,14 +110,14 @@ function menuOnClick(event) {
 
         beverages.forEach(function (beverage) {
             const beverageDOM = `
-            <div class="beverage">
+            <div class="beverage" id="bevv">
                 <div class='beverage-info'>
                     <div class='beverage-header'>
                         <h2>${beverage.productNameBold}</h2>
                         <h4>${beverage.productNameThin}</h4>
                         <hr>
                     </div>
-                    <div class='beverage-main-content'> 
+                    <div class='beverage-main-content sv'> 
                         <p>${beverage.taste}</p>
                         <p>${beverage.usage}</p>
                     </div>
@@ -139,6 +143,7 @@ function menuOnClick(event) {
             
             $('div#all-beverages').append(beverageDOM);
         });
+        
 
         $('div#all-beverages').css("display", "grid");
         $(this).css("display", "none");
@@ -149,6 +154,10 @@ function menuOnClick(event) {
         */
         $('.beverage-to-list').on('click', addToCart);  
 };
+
+
+
+
 
 function occupyTableOnClick() {
     const tableNumber = Number($(this).text().trim());
