@@ -170,6 +170,48 @@ class Presenter {
         }
     }
 }
+
+var language = 'sv'
+
+function update_view() {
+    keys = dict['keys'];
+    for (idx in keys) {
+        key = keys[idx];
+        console.log(key);
+        $("#" + key).text(get_string(key));
+    };
+    pics = dict['pics'];
+    for (idx in pics) {
+        pic = pics[idx];
+        $("#" + pic).attr('src', get_string(pic));
+    };
+}
+
+// Update the language we use
+function change_lang() {
+    if (language=='en') {
+        language = 'sv';
+    } else {language = 'en'};
+    update_view();
+}
+
+function update_taste() {
+    $("#bevv").find('.sv').css( "color", "red" );
+}
+
+// This function will return the appropriate string for each
+// key. The language handling is made "automatic".
+//
+function get_string(key) {
+    return dict[language][key];
+}
+
+/**
+ * 
+ */
+function sendHome() {
+    window.location.href = "index.html";
+}
 const present = new Presenter();
 
 function occupyTableOnClick() {
@@ -246,16 +288,16 @@ function menu() {
      */
     const beverages = db.beverages;
 
-    beverages.forEach(function (beverage) {
-        const beverageDOM = `
-            <div class="beverage">
+        beverages.forEach(function (beverage) {
+            const beverageDOM = `
+            <div class="beverage" id="bevv">
                 <div class='beverage-info'>
                     <div class='beverage-header'>
                         <h2>${beverage.productNameBold}</h2>
                         <h4>${beverage.productNameThin}</h4>
                         <hr>
                     </div>
-                    <div class='beverage-main-content'> 
+                    <div class='beverage-main-content sv'> 
                         <p>${beverage.taste}</p>
                         <p>${beverage.usage}</p>
                     </div>
@@ -385,6 +427,8 @@ jQuery(function () {
             present.toggleColor.call(this, rand);
         }
     });
+    $('.btn.btn-nav2').on('click', change_lang);
 
     $('h1#current-user-privilage').text(privilageToString(db.currentUser.credentials));
+    update_view();
 });

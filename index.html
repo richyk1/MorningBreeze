@@ -8,10 +8,11 @@
     <title>Morning Breeze</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/javascript/jquery-3.3.1.min.js"></script>
-    <script src="assets/javascript/model/data_model.js"></script>
     <script src="assets/javascript/controller/user_controller.js"></script>
     <script src="assets/javascript/controller/nav_controller.js"></script>
     <script src="assets/javascript/controller/combinationlock_controller.js"></script>
+    <script src="assets/javascript/model/data_model.js"></script>
+    <script src="assets/javascript/Dictionary.js"></script>
 </head>
 
 <body>
@@ -19,11 +20,11 @@
         <div id="tint"></div>
         <form autocomplete="off">
             <div id="login-field">
-                <label for="username">Username</label>
+                <label for="username"><div id="username-label"></div></label> <!-- Username -->
                 <input type="text" id="username" name="username" placeholder="Enter Username" required autofocus>
             </div>
             <div id="password-field">
-                <label for="password">Password</label>
+                <label for="password"><div id="password-label"></div></label> <!-- Password -->
                 <input type="text" id="password" name="password" placeholder="Enter Password" required>
             </div>
             <div id="submit">
@@ -86,9 +87,10 @@
                 <button class="btn btn-nav" id="button-home">Home</button>
             </div>
             <h1 id="current-user-table">Choose your table: </h1>
+            <button class="btn btn-nav2"><div id="change-lang"></div></button> <!-- Language button -->
             <h1 id="current-user-privilage"></h1>
         </nav>
-        <button class="btn login-vip">Login</button>
+        <button class="btn login-vip" id="button-login">Login</button>
     </header>
     <main>
         <div id="table-window">

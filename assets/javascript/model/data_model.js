@@ -89,6 +89,20 @@ const ACCESS_LEVELS = {
     REGULAR: "4"
 }
 
+var cart = [];
+
+function pushStack(cartItem) {
+    stack.push(cartItems);
+}
+
+function popStack(cartItem) {
+    var lastStack = stack.pop()
+
+    cartItems = lastStack ? lastStack : cartItems
+}
+
+
+
 /** Class responsible for extracting relevant information from databases */
 class Data {
     constructor() {
@@ -153,6 +167,8 @@ class Data {
         }
     }
 }
+
+
 
 const db = new Data();
 db.loadUsers();
